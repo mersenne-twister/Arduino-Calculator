@@ -38,5 +38,5 @@ int main()
     //make sure we have the biggest rootable factor
     //if so then subtract them from x print them before x
 
-    //if not then just pint x
+    //if not then just print x
 }
