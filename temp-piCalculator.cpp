@@ -31,8 +31,10 @@ int main()
     
     //check if x is a square
     //if so, root it
-
     //check if any of the factors of x are squares
+    //modify factor function to find number of factors,
+    //and then be able to get a given factor based off their number
+
     //make sure we have the biggest rootable factor
     //if so then subtract them from x print them before x
 
