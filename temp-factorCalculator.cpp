@@ -8,7 +8,7 @@ int main()
 
     //do fp division then use mod to check if whole
 
-    for (int i = 1; ((i <= inputNumber / 2) && (i <= (inputNumber / i))); ++i) {
+    for (int i = 1; ((i <= (inputNumber / 2)) && (i <= (inputNumber / i))); ++i) {
         if (!(inputNumber % i)) {
             int factor{inputNumber / i};
             std::cout << ((factor <= i) ? factor : i) << ", " << ((factor >= i) ? factor : i) << '\n';
