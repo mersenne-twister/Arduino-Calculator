@@ -21,14 +21,6 @@ int main()
     return 0;
 }
 
-//calculators:
-//factor calculator(done)
-//arithmetic calculator
-//pythagorean theorem calculator(returns square root if neccesary)
-//
-
-
-
 //code for finding factor
 //
 //int inputNumber{};
