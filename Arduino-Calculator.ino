@@ -43,41 +43,50 @@ void setup() {
 }
 
 void loop() {
-  if (digitalRead(backButton)) {
-    lcd.setCursor(0, 0);
-    lcd.print("1");
-    Serial.println("back on");
-  } else {
-    lcd.setCursor(0, 0);
-    lcd.print(" ");
+  while (true) {
+    mainMenu();
   }
 
-  if (digitalRead(enterButton)) {
-    lcd.setCursor(1, 0);
-    lcd.print("2");
-    Serial.println("enter on");
-  } else {
-    lcd.setCursor(1, 0);
-    lcd.print(" ");
-  }
 
-  if (digitalRead(clearButton)) {
-    lcd.setCursor(2, 0);
-    lcd.print("3");
-    Serial.println("clear on");
-  } else {
-    lcd.setCursor(2, 0);
-    lcd.print(" ");
-  }
 
-  if (digitalRead(deleteButton)) {
-    lcd.setCursor(3, 0);
-    lcd.print("4");
-    Serial.println("delete on");
-  } else {
-    lcd.setCursor(3, 0);
-    lcd.print(" ");
-  }
+
+
+
+  // if (digitalRead(backButton)) {
+  //   lcd.setCursor(0, 0);
+  //   lcd.print("1");
+  //   Serial.println("back on");
+  // } else {
+  //   lcd.setCursor(0, 0);
+  //   lcd.print(" ");
+  // }
+
+  // if (digitalRead(enterButton)) {
+  //   lcd.setCursor(1, 0);
+  //   lcd.print("2");
+  //   Serial.println("enter on");
+  // } else {
+  //   lcd.setCursor(1, 0);
+  //   lcd.print(" ");
+  // }
+
+  // if (digitalRead(clearButton)) {
+  //   lcd.setCursor(2, 0);
+  //   lcd.print("3");
+  //   Serial.println("clear on");
+  // } else {
+  //   lcd.setCursor(2, 0);
+  //   lcd.print(" ");
+  // }
+
+  // if (digitalRead(deleteButton)) {
+  //   lcd.setCursor(3, 0);
+  //   lcd.print("4");
+  //   Serial.println("delete on");
+  // } else {
+  //   lcd.setCursor(3, 0);
+  //   lcd.print(" ");
+  // }
 
   //delay(50);
   // char pressedKey = keypad.getKey();
