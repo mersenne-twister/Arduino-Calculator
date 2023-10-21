@@ -45,7 +45,7 @@ void setup() {
 void loop() {
   mainMenu(); //TODO: move main menu stuff into void loop
 
-
+  //TODO: divide by zero thought you were slick didn't ya shutting down
 
 
 
