@@ -43,9 +43,8 @@ void setup() {
 }
 
 void loop() {
-  while (true) {
-    mainMenu();
-  }
+  mainMenu(); //TODO: move main menu stuff into void loop
+
 
 
 
