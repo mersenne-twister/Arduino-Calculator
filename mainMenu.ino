@@ -15,11 +15,14 @@ void mainMenu()
     while (!buttonPressed) {
       if (digitalRead(enterButton)) {
         delay(50);
+        while (digitalRead(enterButton)) {}
 
         switch (currentMenu) {
         case 0:
 
         case 2:
+        factPairCalculator();
+        break;
 
         case 4:
 
@@ -28,6 +31,7 @@ void mainMenu()
         case 8:
         
         case 10:
+
         default:
           lcd.clear();
           lcd.print("ERROR BAD MENU");
@@ -65,6 +69,7 @@ void mainMenu()
 
 }
 
+//writes the current menu to the lcd
 void writeMenu(int currentMenu)
 {
   lcd.clear();
