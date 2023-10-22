@@ -24,7 +24,7 @@ int main()
     std::int64_t c{};
     std::int64_t x{};
     bool findB{false};
-    if (b == (-27 * -27)) {
+    if (b == (-27 * -27)) { //temp code to facilitate entering c
         findB = true;
         std::cout << "C: ";
         std::cin >> c;
@@ -38,7 +38,20 @@ int main()
         return 0;
     }
 
+    std::int64_t root{x};
+    std::int64_t coefficient{1}; //only display if greater then 1
 
+    while (numFactors(root) > 2) { //keep going until root is prime
+        for (int i = numFactors(root); i > 1; --i) {
+            std::int64_t factor{getFactor(root, i)};
+
+            if (!(factor % root))
+                if (cleanSqrt(factor)) {
+                    root -= factor;
+                    coefficient *= cleanSqrt(factor);
+                }
+        }
+    }
 
     //check if any of the factors of x are squares
     //modify factor function to find number of factors,

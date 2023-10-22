@@ -33,7 +33,7 @@ int numFactors(int num)
     return factors;
 }
 
-int getFactor(int composite, int numFactor)
+std::int64_t getFactor(std::int64_t composite, std::int64_t numFactor)
 {
     int currentFactor{-1}; //causes the first valid factor to set it to zero, so we can start from 0 instead of 1
     for (int i = 1; (i <= (composite / 2)) && (i <= (composite / i)); ++i) {
