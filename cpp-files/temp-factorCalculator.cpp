@@ -33,6 +33,20 @@ int numFactors(int num)
     return factors;
 }
 
+int getFactor(int composite, int numFactor)
+{
+    int currentFactor{0};
+    for (int i = 1; (i <= (composite / 2)) && (i <= (composite / i)); ++i) {
+        if (!(composite % i)) {
+            if (++currentFactor == numFactor) //i is the smaller factor
+                return i;
+            else if (++currentFactor == numFactor)
+                return (composite / i);
+        }
+    }
+    return 0;
+}
+
 //code for finding factor
 //
 //int inputNumber{};
