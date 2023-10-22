@@ -23,7 +23,7 @@
 // }
 
 //finds the number of factors of a number
-int numFactors(int num)
+int numFactors(std::int64_t num)
 {
     int factors{0};
     for (int i = 1; (i <= (num / 2)) && (i <= (num / i)); ++i) {
