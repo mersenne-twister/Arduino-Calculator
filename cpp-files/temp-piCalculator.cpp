@@ -41,7 +41,7 @@ int main()
     std::int64_t root{x};
     std::int64_t coefficient{1}; //only display if greater then 1
 
-    while (numFactors(root) > 2) { //keep going until root is prime
+    //while (numFactors(root) > 2) { //keep going until root is prime
         for (int i = numFactors(root); i > 1; --i) {
             std::int64_t factor{getFactor(root, i)};
 
@@ -51,7 +51,7 @@ int main()
                     coefficient *= cleanSqrt(factor);
                 }
         }
-    }
+    //}
 
     std::cout << coefficient << 'r' << root << '\n';
 
