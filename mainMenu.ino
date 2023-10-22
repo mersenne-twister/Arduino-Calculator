@@ -1,6 +1,7 @@
-String const menus[10] = { //this would be constexpr but apparently arduino strings can't be
+String const menus[12] = { //this would be constexpr but apparently arduino strings can't be
     "   Arithmetic", "   Calculator", //leading spaces for center allignment
     "  Factor Pair", "   Calculator",
+    "  Square Root", "   Simplifier",
     "Pythagorean theo", "   Calculator",
     " Quadratic Form", "   Calculator",
     "Knuth's Up Arrow", "Notat Calculator"
@@ -48,7 +49,7 @@ void mainMenu()
 
         currentMenu += 2;
         
-        if (currentMenu > 9)
+        if (currentMenu > 11)
         currentMenu = 0;
 
         writeMenu(currentMenu);
