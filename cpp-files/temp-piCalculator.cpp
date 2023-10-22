@@ -53,6 +53,8 @@ int main()
         }
     }
 
+    std::cout << coefficient << 'r' << root << '\n';
+
     //check if any of the factors of x are squares
     //modify factor function to find number of factors,
     //and then be able to get a given factor based off their number
