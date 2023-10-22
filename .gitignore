@@ -429,3 +429,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/cpp-files/Arduino-Calculator.sln
+/cpp-files/Arduino-Calculator.vcxproj
+/cpp-files/Arduino-Calculator.vcxproj.filters
