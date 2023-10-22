@@ -2,7 +2,7 @@
 #include <iostream>
 #include "temp-factorCalculator.h"
 
-std::int64_t cleanSqrt(int num);
+std::int64_t cleanSqrt(std::int64_t num);
 
 //no input validation, this is a test
 int main()
@@ -33,24 +33,24 @@ int main()
     } else
         x = (a + b);
     
-    if (cleanSqrt(x)) {
-        std::cout << cleanSqrt(x) << '\n';
-        return 0;
-    }
+    //if (cleanSqrt(x)) { //DEPRECATED: the conditions should never be met (for the simplifier this will be needed)
+    //    std::cout << cleanSqrt(x) << '\n';
+    //    return 0;
+    //}
 
     std::int64_t root{x};
     std::int64_t coefficient{1}; //only display if greater then 1
 
     //while (numFactors(root) > 2) { //keep going until root is prime
-        for (int i = numFactors(root); i > 1; --i) {
-            std::int64_t factor{getFactor(root, i)};
+    for (std::int64_t i = (numFactors(root) - 1); i > 2; --i) {
+        std::int64_t factor{getFactor(root, i)};
 
-            if (!(factor % root))
-                if (cleanSqrt(factor)) {
-                    root -= factor;
-                    coefficient *= cleanSqrt(factor);
-                }
-        }
+        if (!(root % factor))
+            if (cleanSqrt(factor)) {
+                root /= factor;
+                coefficient *= cleanSqrt(factor);
+            }
+    }
     //}
 
     std::cout << coefficient << 'r' << root << '\n';
@@ -68,9 +68,9 @@ int main()
 }
 
 //returns sqrt, or 0 if it can't cleanly be rooted
-std::int64_t cleanSqrt(int num)
+std::int64_t cleanSqrt(std::int64_t num)
 {
-    for (int i = 1; i*i <= num; ++i) {
+    for (std::int64_t i = 1; i*i <= num; ++i) {
         if ((i * i) == num)
             return i;
     }
