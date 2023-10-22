@@ -25,7 +25,8 @@ void factPairCalculator() {
           lcd.print(enteredNum);
         } else {
           enteredNum = (enteredNum * 10) + pressedNum;
-          lcd.print(pressedNum);
+          lcd.clear();
+          lcd.print(enteredNum);
         }
       }
 
@@ -76,9 +77,46 @@ void factPairCalculator() {
       }
       //check for delete
     }
+
+
+
+
+
+
+
+
+
     //do math
 
     //display number
     //check for back clear, enter, or delete to cycle through factor
+
+    lcd.clear();
+    lcd.print("factors");
   }
+}
+
+int numFactors(int factor)
+{
+    int amountFactors{0};
+    for (int i = 1; (i <= (factor / 2)) && (i <= (factor / i)); ++i) {
+        if (!(factor % i)) {
+            amountFactors += 2;
+        }
+    }
+    return factors;
+}
+
+int getFactor(int composite, int numFactor)
+{
+    int currentFactor{-1}; //causes the first valid factor to set it to zero, so we can start from 0 instead of 1
+    for (int i = 1; (i <= (composite / 2)) && (i <= (composite / i)); ++i) {
+        if (!(composite % i)) {
+            if (++currentFactor == numFactor) //i is the smaller factor
+                return i;
+            else if (++currentFactor == numFactor)
+                return (composite / i);
+        }
+    }
+    return 0;
 }
