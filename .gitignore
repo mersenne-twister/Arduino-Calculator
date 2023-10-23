@@ -432,3 +432,4 @@ FodyWeavers.xsd
 /cpp-files/Arduino-Calculator.sln
 /cpp-files/Arduino-Calculator.vcxproj
 /cpp-files/Arduino-Calculator.vcxproj.filters
+.theia/launch.json

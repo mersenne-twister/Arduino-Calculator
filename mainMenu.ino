@@ -2,7 +2,7 @@ String const menus[12] = { //this would be constexpr but apparently arduino stri
     "   Arithmetic", "   Calculator", //leading spaces for center allignment
     "  Factor Pair", "   Calculator",
     "  Square Root", "   Simplifier",
-    "Pythagorean theo", "   Calculator",
+    "Pythagorean Theo", "   Calculator",
     " Quadratic Form", "   Calculator",
     "Knuth's Up Arrow", "Notat Calculator"
   };
@@ -22,11 +22,11 @@ void mainMenu()
         case 0:
 
         case 2:
-        factPairCalculator();
-        break;
-
+          factPairCalculator();
+          break;
         case 4:
-
+          squareSimplifier();
+          break;
         case 6:
 
         case 8:
