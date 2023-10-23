@@ -1,11 +1,12 @@
 //factor pair calculator
-void factPairCalculator() {
-  bool backPressed{false};
+void factPairCalculator()
+{
+  bool backPressed{false}; //lets us break out of the inner while loops
   while (!backPressed) {
     lcd.clear();
     uint16_t enteredNum{0};
     lcd.print(enteredNum);
-    while (true) { //loop for getting input
+    while (!backPressed) { //loop for getting input
 
       //TODO: account for max num size
       char pressedKey = keypad.getKey();
@@ -36,7 +37,6 @@ void factPairCalculator() {
       if (digitalRead(backButton)) {
         delay(50);
         backPressed = true;
-        break;
       }
 
       if (digitalRead(enterButton)) { //enteredNum has to be not 0
@@ -78,21 +78,49 @@ void factPairCalculator() {
       //check for delete
     }
 
+    int page{0};
+    printFactors(enteredNum, page);
 
+    while (!backPressed) {
+      
+      if (digitalRead(deleteButton)) {
+        delay(50);
+        ++page;
+        if (page > ((numFactors(enteredNum) - 1) / 6))
+          page = 0;
+        printFactors(enteredNum, page);
+        while (digitalRead(deleteButton)) {}
+        delay(50);
+      }
+      
+      if (digitalRead(clearButton) || digitalRead(enterButton)) {
+        delay(50);
+        lcd.clear();
+        enteredNum = 0;
+        lcd.print(enteredNum);
+        while (digitalRead(clearButton) || digitalRead(enterButton)) {}
+        delay(50);
+        break;
+      }
 
+      if (digitalRead(backButton)) {
+        delay(50);
+        while (digitalRead(backButton)) {}
+        backPressed = true;
+      }
+    }    
+  }
+}
 
+void printFactors(int factor, int page)
+{ //max number we would need to display is 5 digits(65535), so we split the space up in groups of 5
+  page *= 6; //so we only have to increase page by one in the logic above
+  lcd.clear(); 
 
-
-
-
-
-    //do math
-
-    //display number
-    //check for back clear, enter, or delete to cycle through factor
-
-    lcd.clear();
-    lcd.print("factors");
+  for (int i = 0; i < 6; ++i) {
+    lcd.setCursor((i / 2 * 5), (i % 2));
+    if (getFactor(factor, (page + i)))
+      lcd.print(getFactor(factor, (page + i)));
   }
 }
 
@@ -104,7 +132,7 @@ int numFactors(int factor)
             amountFactors += 2;
         }
     }
-    return factors;
+    return amountFactors;
 }
 
 int getFactor(int composite, int numFactor)
