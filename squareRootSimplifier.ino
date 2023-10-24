@@ -43,7 +43,6 @@ void squareSimplifier()
         while (digitalRead(enterButton)) {}
         delay(50);
         if (enteredNum) {
-          Serial.println("enter pressed");
           break;
         } else {
           lcd.clear();
@@ -76,12 +75,35 @@ void squareSimplifier()
         while (digitalRead(deleteButton)) {}
         delay(50);
       }
-    }
+    }    
 
     lcd.clear();
     lcd.print("simplified root");
+    //print result
+
+    while (!backPressed) {
+      
+      if (digitalRead(clearButton || enterButton)) {
+        delay(50);
+        while (digitalRead(clearButton || enterButton)) {}
+        delay(50);
+        enteredNum = 0;
+        break;
+      }
+      //check for enter(reset)
+      //check for clear
+
+      if (digitalRead(backButton)) {
+        delay(50);
+        backPressed = true;
+      }
+
+      //check for delete(uhhh make it delete stuff from the answer? then enter puts the stuff back?)(for know it'll do nothing)
+
+      
 
 
+    }
   }
 
 
