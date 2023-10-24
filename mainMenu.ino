@@ -1,7 +1,8 @@
-String const menus[12] = { //this would be constexpr but apparently arduino strings can't be
+String const menus[14] = { //this would be constexpr but apparently arduino strings can't be
     "   Arithmetic", "   Calculator", //leading spaces for center allignment
     "  Factor Pair", "   Calculator",
     "  Square Root", "   Simplifier",
+    "    Fraction", "   Simplifier",
     "Pythagorean Theo", "   Calculator",
     " Quadratic Form", "   Calculator",
     "Knuth's Up Arrow", "Notat Calculator"
@@ -33,6 +34,8 @@ void mainMenu()
         
         case 10:
 
+        case 12:
+
         default:
           lcd.clear();
           lcd.print("ERROR BAD MENU");
@@ -49,11 +52,25 @@ void mainMenu()
 
         currentMenu += 2;
         
-        if (currentMenu > 11)
+        if (currentMenu > 12)
         currentMenu = 0;
 
         writeMenu(currentMenu);
         while (digitalRead(deleteButton)) {} //wait until they lift the button up
+        delay(50);
+      }
+
+      if (digitalRead(clearButton)) {
+        buttonPressed = true;
+        delay(50); //debounce delay
+
+        currentMenu -= 2;
+        
+        if (currentMenu < 0)
+        currentMenu = 12;
+
+        writeMenu(currentMenu);
+        while (digitalRead(clearButton)) {} //wait until they lift the button up
         delay(50);
       }
     }
