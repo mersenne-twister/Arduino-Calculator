@@ -4,6 +4,7 @@ String const menus[14] = { //this would be constexpr but apparently arduino stri
     "  Square Root", "   Simplifier",
     "    Fraction", "   Simplifier",
     "Pythagorean Theo", "   Calculator",
+    //fraction simplifier
     " Quadratic Form", "   Calculator",
     "Knuth's Up Arrow", "Notat Calculator"
   };
