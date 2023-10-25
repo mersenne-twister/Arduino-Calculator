@@ -9,10 +9,6 @@ fraction simplifyFraction(fraction fraction);
 
 int main()
 {
-    fraction fract1{2, 4};
-    fraction result{simplifyFraction(fract1)};
-    std::cout << result.numerator << '/' << result.denominator << '\n';
-
     //a can't be zero
 
     //get a, b, c
@@ -41,8 +37,8 @@ fraction simplifyFraction(fraction fraction)
     while (divisionHappened) {
         divisionHappened = false;
 
-        for (int i = 1; (i <= fraction.numerator) ||  (i <= fraction.denominator); ++i) {
-            if (!(fraction.numerator / i) && !(fraction.denominator / i)) {
+        for (int i = 2; (i <= fraction.numerator) ||  (i <= fraction.denominator); ++i) {
+            if (!(fraction.numerator % i) && !(fraction.denominator % i)) {
                 fraction.numerator /= i;
                 fraction.denominator /= i;
                 divisionHappened = true;
