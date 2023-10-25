@@ -23,7 +23,7 @@
 // }
 
 //finds the number of factors of a number
-int numFactors(std::int64_t num)
+int numFactors(int num)
 {
     int factors{0};
     for (int i = 1; (i <= (num / 2)) && (i <= (num / i)); ++i) {
@@ -34,7 +34,7 @@ int numFactors(std::int64_t num)
     return factors;
 }
 
-std::int64_t getFactor(std::int64_t composite, std::int64_t numFactor)
+int getFactor(int composite, int numFactor)
 {
     int currentFactor{-1}; //causes the first valid factor to set it to zero, so we can start from 0 instead of 1
     for (int i = 1; (i <= (composite / 2)) && (i <= (composite / i)); ++i) {
