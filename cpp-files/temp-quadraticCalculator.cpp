@@ -5,8 +5,13 @@ struct fraction {
     int denominator;
 };
 
+fraction simplifyFraction(fraction fraction);
+
 int main()
 {
+    fraction fract1{2, 4};
+    fraction result{simplifyFraction(fract1)};
+    std::cout << result.numerator << '/' << result.denominator << '\n';
 
     //a can't be zero
 
@@ -25,8 +30,10 @@ int main()
 
 fraction simplifyFraction(fraction fraction)
 {
+    //check if denom cleanly divides into numer
+    //if so divide then return over 1
     if (!(fraction.numerator % fraction.denominator)) {
-        fraction.numerator = (fraction.numerator / fraction.denominator);
+        fraction.numerator /= fraction.denominator;
         fraction.denominator = 1;
     }
 
@@ -34,14 +41,16 @@ fraction simplifyFraction(fraction fraction)
     while (divisionHappened) {
         divisionHappened = false;
 
-        for (int i = 0; (i <= fraction.numerator) ||  (i <= fraction.denominator); ++i) {
-            
+        for (int i = 1; (i <= fraction.numerator) ||  (i <= fraction.denominator); ++i) {
+            if (!(fraction.numerator / i) && !(fraction.denominator / i)) {
+                fraction.numerator /= i;
+                fraction.denominator /= i;
+                divisionHappened = true;
+            }
         }
 
 
     }
-    //check if denom cleanly divides into numer
-    //if so divide then return over 1
 
     //check if they can both divide by every number until the number is bigger then ![half of either of them] both of them?
     //if so divide them by that number, then keep going through until no division happens
