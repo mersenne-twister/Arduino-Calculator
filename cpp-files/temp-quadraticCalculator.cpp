@@ -1,4 +1,5 @@
 #include <iostream>
+#include "temp-factorCalculator.h"
 
 struct fraction {
     int numerator;
@@ -7,15 +8,59 @@ struct fraction {
 
 fraction simplifyFraction(fraction fraction);
 
+int cleanSqrt(int num);
+
+//TODO: MAKE INO FILE FOR GENERAL MATH FUNCTIONS
 int main()
 {
-    //a can't be zero
+    std::cout << "a: ";
+    int a{};
+    std::cin >> a;
+    if (!a) {
+        std::cout << "'a' must be nonzero\n";
+        return 0;
+    }
+
+    std::cout << "b: ";
+    int b{};
+    std::cin >> b;
+
+    std::cout << "c: ";
+    int c{};
+    std::cin >> c;
 
     //get a, b, c
     //root = b^2 - 4ac
     //simplify root
     //denominator = 2a
     //numerator = -b
+
+    //TODO: MAKE STRUCT FOR ROOT AND COEFFICIENT
+    int root{(b * b) - (4 * a * c)};
+    int coefficient{1};
+
+    //TODO: MAKE THIS INTO A FUNCTION
+    for (int i = (numFactors(root) - 1); i > 2; --i) {
+        int factor{getFactor(root, i)};
+
+        if (!(root % factor))
+            if (cleanSqrt(factor)) {
+                root /= factor;
+                coefficient *= cleanSqrt(factor);
+            }
+    }
+
+    int numerator{-b};
+    int denominator{2 * a};
+    
+    fraction posanswer{(numerator + root), denominator};
+    posanswer = simplifyFraction(posanswer);
+
+    fraction neganswer{(numerator - root), denominator};
+    neganswer = simplifyFraction(neganswer);
+
+    std::cout << "x = " << posanswer.numerator << '/' << posanswer.denominator
+    << ", " << "x = " << neganswer.numerator << '/' << neganswer.denominator << '\n';
 
     //2 parts:
     //(numerator + root) / denominator
@@ -56,4 +101,13 @@ fraction simplifyFraction(fraction fraction)
 
 
     return fraction;
+}
+
+int cleanSqrt(int num)
+{
+    for (int i = 1; i*i <= num; ++i) {
+        if ((i * i) == num)
+            return i;
+    }
+    return 0;
 }
