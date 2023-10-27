@@ -37,23 +37,39 @@ int main()
 
     //TODO: MAKE STRUCT FOR ROOT AND COEFFICIENT
     int root{(b * b) - (4 * a * c)};
-    if (root < 0)
+    if (root < 0) {
         std::cout << "unsolvable.\n";
+        return 0;
+    }
     int coefficient{1};
 
-    //TODO: MAKE THIS INTO A FUNCTION
-    for (int i = (numFactors(root) - 1); i > 2; --i) {
-        int factor{getFactor(root, i)};
+    //this is being moved closer to the other logic for now
+    // if (cleanSqrt(root)) {
+    //     coefficient = cleanSqrt(root);
+    //     root = 1;
+    // }
 
-        if (!(root % factor))
-            if (cleanSqrt(factor)) {
-                root /= factor;
-                coefficient *= cleanSqrt(factor);
-            }
-    }
+    //for the time being, we're assuming we can always get the root of `root`
+    // //TODO: MAKE THIS INTO A FUNCTION
+    // for (int i = (numFactors(root) - 1); i > 2; --i) {
+    //     int factor{getFactor(root, i)};
+
+    //     if (!(root % factor))
+    //         if (cleanSqrt(factor)) {
+    //             root /= factor;
+    //             coefficient *= cleanSqrt(factor);
+    //         }
+    // }
 
     int numerator{-b};
     int denominator{2 * a};
+    
+    if (cleanSqrt(root)) {
+        root += cleanSqrt(root);
+    } else {
+        std::cout << "cannot root root.\n";
+        return 0;
+    }
     
     fraction posanswer{(numerator + root), denominator};
     posanswer = simplifyFraction(posanswer);
