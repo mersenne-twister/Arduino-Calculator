@@ -37,6 +37,8 @@ int main()
 
     //TODO: MAKE STRUCT FOR ROOT AND COEFFICIENT
     int root{(b * b) - (4 * a * c)};
+    if (root < 0)
+        std::cout << "unsolvable.\n";
     int coefficient{1};
 
     //TODO: MAKE THIS INTO A FUNCTION
