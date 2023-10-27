@@ -65,7 +65,7 @@ int main()
     int denominator{2 * a};
     
     if (cleanSqrt(root)) {
-        root += cleanSqrt(root);
+        root = cleanSqrt(root);
     } else {
         std::cout << "cannot root root.\n";
         return 0;
@@ -122,7 +122,7 @@ fraction simplifyFraction(fraction fraction)
 }
 
 int cleanSqrt(int num)
-{
+    {
     for (int i = 1; i*i <= num; ++i) {
         if ((i * i) == num)
             return i;
