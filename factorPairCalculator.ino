@@ -135,10 +135,10 @@ int numFactors(int factor)
     return amountFactors;
 }
 
-int getFactor(int composite, int numFactor)
+uint getFactor(uint16_t composite, int numFactor)
 {
     int currentFactor{-1}; //causes the first valid factor to set it to zero, so we can start from 0 instead of 1
-    for (int i = 1; (i <= (composite / 2)) && (i <= (composite / i)); ++i) {
+    for (uint i = 1; (i <= (composite / 2)) && (i <= (composite / i)); ++i) {
         if (!(composite % i)) {
             if (++currentFactor == numFactor) //i is the smaller factor
                 return i;
