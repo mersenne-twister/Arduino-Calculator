@@ -83,9 +83,10 @@ void squareSimplifier()
 
     while (!backPressed) {
       
-      if (digitalRead(clearButton || enterButton)) {
-        delay(50);
-        while (digitalRead(clearButton || enterButton)) {}
+      if (digitalRead(clearButton) || digitalRead(enterButton)) {
+        lcd.clear();
+        lcd.print(0);
+        while (digitalRead(clearButton) || digitalRead(enterButton)) {}
         delay(50);
         enteredNum = 0;
         break;
@@ -94,11 +95,12 @@ void squareSimplifier()
       //check for clear
 
       if (digitalRead(backButton)) {
+        while (digitalRead(backButton)) {}
         delay(50);
         backPressed = true;
       }
 
-      //check for delete(uhhh make it delete stuff from the answer? then enter puts the stuff back?)(for know it'll do nothing)
+      //check for delete(uhhh make it delete stuff from the answer? then enter puts the stuff back?)(for now it'll do nothing)
 
       
 
