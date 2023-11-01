@@ -36,21 +36,23 @@ int getNumInput(bool& backPressed) //I reallyyyyyy hope this works
         //     delay(50);
         //     backPressed = true;
         // }
-
-        if (digitalRead(enterButton)) { //enteredNum has to be not 0
-            while (digitalRead(enterButton)) {}
+        if (input(enterButton)) {
+        //if (digitalRead(enterButton)) { //enteredNum has to be not 0
+            //while (digitalRead(enterButton)) {}
             if (enteredNum) {
-            delay(50);
+            //delay(50);
             break;
             } else {
-            lcd.clear();
-            lcd.print("Must enter");
-            lcd.setCursor(0, 1);
-            lcd.print("number");
+            print("Must enter", "number");
+            // lcd.clear();
+            // lcd.print("Must enter");
+            // lcd.setCursor(0, 1);
+            // lcd.print("number");
             
-            while (!digitalRead(enterButton)) {}
-            while (digitalRead(enterButton)) {}
-            delay(50);
+            waitForButton(enterButton);
+            // while (!digitalRead(enterButton)) {}
+            // while (digitalRead(enterButton)) {}
+            // delay(50);
             lcd.clear();
             lcd.print(enteredNum);
             }
@@ -113,4 +115,20 @@ bool input(int const button)
     while (digitlRead(button)) {}
     delay(50);
     return true;
+}
+
+void print(String topText; String bottomText)
+{
+    lcd.clear();
+    lcd.print(topText);
+    lcd.setCursor(0, 1);
+    lcd.print(bottomText);
+}
+
+void waitForButton(int button)
+{
+    while (!digitalRead(button)) {}
+    delay(50);
+    while (digitalRead(button)) {}
+    delay(50);
 }
