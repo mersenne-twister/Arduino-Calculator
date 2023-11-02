@@ -24,7 +24,9 @@ void mainMenu()
 
         switch (currentMenu) {
         case 0:
-
+          lcd.clear();
+          lcd.print("1 + 1 = 2");//temp
+          break;
         case 2:
           factPairCalculator();
           break;
@@ -36,7 +38,7 @@ void mainMenu()
         case 8:
         
         case 10:
-
+          quadCalc();
         case 12:
 
         default:
