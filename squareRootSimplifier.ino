@@ -80,6 +80,7 @@ void squareSimplifier()
     }
 
     lcd.clear();
+    lcd.print("r:");
     lcd.print(enteredRoot);
 
     while (!backPressed) { //loop for getting root
@@ -99,10 +100,12 @@ void squareSimplifier()
           delay(50);
 
           lcd.clear();
+          lcd.print("r:");
           lcd.print(enteredRoot);
         } else {
           enteredRoot = (enteredRoot * 10) + pressedNum;
           lcd.clear();
+          lcd.print("r:");
           lcd.print(enteredRoot);
         }
       }
@@ -131,6 +134,7 @@ void squareSimplifier()
           while (digitalRead(enterButton)) {}
           delay(50);
           lcd.clear();
+          lcd.print("r:");
           lcd.print(enteredRoot);
         }
       }
@@ -142,6 +146,7 @@ void squareSimplifier()
         enteredCof = 0;
         enteredRoot = 0;
         lcd.clear();
+        lcd.print("r:");
         lcd.print(enteredCof);
       }
 
@@ -149,6 +154,7 @@ void squareSimplifier()
         delay(50);
         enteredRoot /= 10; //integer division
         lcd.clear();
+        lcd.print("r:");
         lcd.print(enteredRoot);
         while (digitalRead(deleteButton)) {}
         delay(50);
