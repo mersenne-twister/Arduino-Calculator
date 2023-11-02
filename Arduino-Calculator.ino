@@ -46,6 +46,7 @@ void loop() {
   mainMenu(); //TODO: move main menu stuff into void loop
 
   //TODO: divide by zero thought you were slick didn't ya shutting down
+  //divide by zero unlocks secret mode??
 
 
 
@@ -92,4 +93,17 @@ void loop() {
 
   // if (pressedKey)
   //   lcd.print(pressedKey);
+}
+
+//enter the expression to assert, and the same expression in quotes so we can find the assertion
+void assert(bool isValid, String assertion)
+{
+  if (!isValid) {
+    lcd.clear();
+    lcd.print("   ASSERTION");
+    lcd.setcursor(0, 1);
+    lcd.print("     ERROR");
+    Serial.print("ASSERTION ERROR: ");
+    Serial.println(assertion);
+  }
 }

@@ -51,7 +51,6 @@ int main()
                 coefficient *= cleanSqrt(factor);
             }
     }
-    //}
 
     std::cout << coefficient << 'r' << root << '\n';
 
