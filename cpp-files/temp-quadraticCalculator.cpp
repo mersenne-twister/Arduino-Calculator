@@ -1,12 +1,22 @@
 #include <iostream>
 #include "temp-factorCalculator.h"
 
-struct fraction {
+struct Fraction {
     int numerator;
     int denominator;
 };
 
-fraction simplifyFraction(fraction fraction);
+struct SquareRoot {
+    int coefficient;
+    int root;
+};
+
+struct QuadraticAnswer {
+    Fraction fraction;
+    SquareRoot squareRoot;
+};
+
+Fraction simplifyFraction(Fraction fraction);
 
 int cleanSqrt(int num);
 
@@ -36,12 +46,15 @@ int main()
     //numerator = -b
 
     //TODO: MAKE STRUCT FOR ROOT AND COEFFICIENT
-    int root{(b * b) - (4 * a * c)};
-    if (root < 0) {
+    QuadraticAnswer answer{};
+    answer.squareRoot.root = (b * b) - (4 * a * c);
+
+    //int root{(b * b) - (4 * a * c)};
+    if (answer.squareRoot.root < 0) {
         std::cout << "unsolvable.\n";
         return 0;
     }
-    int coefficient{1};
+    answer.squareRoot.coefficient = 1;
 
     //this is being moved closer to the other logic for now
     // if (cleanSqrt(root)) {
@@ -61,24 +74,31 @@ int main()
     //         }
     // }
 
-    int numerator{-b};
-    int denominator{2 * a};
+    //int numerator{-b};
+    answer.fraction.numerator = -b;
+    //int denominator{2 * a};
+    answer.fraction.denominator = (2 * a);
     
-    if (cleanSqrt(root) != -1) {
-        root = cleanSqrt(root);
+    QuadraticAnswer posAnswer;
+    QuadraticAnswer negAnswer;
+
+    if (cleanSqrt(answer.squareRoot.root) != -1) {
+        posAnswer.fraction.numerator = answer.fraction.numerator + cleanSqrt(answer.squareRoot.root);
+        negAnswer.fraction.numerator = answer.fraction.numerator - cleanSqrt(answer.squareRoot.root);
     } else {
-        std::cout << "cannot root root.\n";
-        return 0;
+        std::cout << "cannot simplify root.\n";
+        return 0; //TODO: add support for unsimplifiable answers
     }
     
-    fraction posanswer{(numerator + root), denominator};
-    posanswer = simplifyFraction(posanswer);
+    //Fraction posanswer{(numerator + root), denominator};
+    //posanswer = simplifyFraction(posanswer);
+    posAnswer.fraction = simplifyFraction(posAnswer.fraction);
 
-    fraction neganswer{(numerator - root), denominator};
-    neganswer = simplifyFraction(neganswer);
+    //Fraction neganswer{(numerator - root), denominator};
+    //neganswer = simplifyFraction(neganswer);
 
-    std::cout << "x = " << posanswer.numerator << '/' << posanswer.denominator
-    << ", " << "x = " << neganswer.numerator << '/' << neganswer.denominator << '\n';
+    std::cout << "x = " << posanswer.fraction.numerator << '/' << posanswer.denominator
+    << ", " << "x = " << neganswer.fraction.numerator << '/' << neganswer.denominator << '\n';
 
     //2 parts:
     //(numerator + root) / denominator
@@ -87,7 +107,7 @@ int main()
 
 }
 
-fraction simplifyFraction(fraction fraction)
+Fraction simplifyFraction(Fraction fraction)
 {
     //check if denom cleanly divides into numer
     //if so divide then return over 1
@@ -122,9 +142,9 @@ fraction simplifyFraction(fraction fraction)
 }
 
 int cleanSqrt(int num)
-    {
+{
     if (!num)
-        return 0;
+        return num;
     
     for (int i = 1; i*i <= num; ++i) {
         if ((i * i) == num)
