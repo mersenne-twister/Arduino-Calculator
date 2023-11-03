@@ -161,6 +161,7 @@ void squareSimplifier()
       }
     }
 
+    //TODO: make this into a function(aka implement the one hopefully in quadcalc.cpp)
     if (cleanSqrt(enteredRoot)) { //logic to simplify expression
       enteredCof = cleanSqrt(enteredRoot);
       enteredRoot = 1;
