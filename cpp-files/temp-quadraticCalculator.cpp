@@ -6,14 +6,14 @@ struct Fraction {
     int denominator;
 };
 
-struct SquareRoot {
+struct Square {
     int coefficient;
     int root;
 };
 
 struct QuadraticAnswer {
     Fraction fraction;
-    SquareRoot squareRoot;
+    Square squareRoot;
 };
 
 struct Quadratic {
@@ -22,8 +22,9 @@ struct Quadratic {
 };
 
 //these are for indicating an error
+//TODO: replace with constexpr?
 Fraction const nullFraction{-1, -1};
-SquareRoot const nullSquareRoot{-1, -1};
+Square const nullSquareRoot{-1, -1};
 QuadraticAnswer const nullQuadraticAnswer{nullFraction, nullSquareRoot};
 Quadratic const nullQuadratic{nullQuadraticAnswer, nullQuadraticAnswer};
 
@@ -54,8 +55,20 @@ int main()
 
     Quadratic quadratic{quadraticSimplifier(a, b, c)};
     
-    std::cout << quadratic.posAnswer.fraction.numerator << '/' << quadratic.posAnswer.fraction.denominator
-    << quadratic.negAnswer.fraction.numerator << '/' << quadratic.negAnswer.fraction.denominator << '\n';
+    //printing cases:
+        //fraction only
+            //if they're identical, just print once
+                //non-whole
+                    //x = num/denom = mixednum
+                //whole(denom is 1)
+                    //x = num
+        //denom is 1(with root)
+            //print num +- coef(root)
+        //denom isn't 1
+            //print (num +- coef(root) / denom)
+    //i?????????
+    std::cout << "x = " << quadratic.posAnswer.fraction.numerator << '/' << quadratic.posAnswer.fraction.denominator
+    << ", x = " << quadratic.negAnswer.fraction.numerator << '/' << quadratic.negAnswer.fraction.denominator << '\n';
 }
 
 //quadratic simplifier
@@ -64,35 +77,31 @@ Quadratic quadraticSimplifier(int a, int b, int c)
     QuadraticAnswer answer{};
     answer.squareRoot.root = (b * b) - (4 * a * c);
 
-    if (answer.squareRoot.root < 0) {
-        std::cout << "unsolvable.\n";
-        return nullQuadratic;
-    }
     answer.squareRoot.coefficient = 1;
-
-    
-    // //TODO: MAKE THIS INTO A FUNCTION
-    // for (int i = (numFactors(root) - 1); i > 2; --i) {
-    //     int factor{getFactor(root, i)};
-
 
     answer.fraction.numerator = -b;
     answer.fraction.denominator = (2 * a);
     
+    if (answer.squareRoot.root < 0) { //TODO: handle negative root
+        std::cout << "unsolvable.\n";
+        return nullQuadratic;
+    }
+
     QuadraticAnswer posAnswer;
     QuadraticAnswer negAnswer;
+
+    posAnswer.fraction = negAnswer.fraction = answer.fraction;
+
+    //TODO: moe as much code as possible out of the if/else
 
     //for the time being, we're assuming we can always get the root
     if (cleanSqrt(answer.squareRoot.root) != -1) { //triggers if we can simplify the root
         posAnswer.fraction.numerator = answer.fraction.numerator + cleanSqrt(answer.squareRoot.root);
         negAnswer.fraction.numerator = answer.fraction.numerator - cleanSqrt(answer.squareRoot.root);
 
-        //tells main to only print the fraction
-        //TODO: replace with a const(expr?) Fraction struct
-        posAnswer.squareRoot.coefficient = -1;
-        posAnswer.squareRoot.root = -1;
-        negAnswer.squareRoot.coefficient = -1;
-        negAnswer.squareRoot.root = -1;
+        //tells outer function to only print the fraction
+        //TODO: replace with 1 or 0 root(0)
+        posAnswer.squareRoot = negAnswer.squareRoot = nullSquareRoot;
 
         posAnswer.fraction = simplifyFraction(posAnswer.fraction);
         negAnswer.fraction = simplifyFraction(negAnswer.fraction);
@@ -100,6 +109,12 @@ Quadratic quadraticSimplifier(int a, int b, int c)
         Quadratic quadratic{posAnswer, negAnswer};
         return quadratic;
     } else {
+        //cases:
+            //simplify fraction
+            //simplify root
+
+
+
         std::cout << "cannot simplify root.\n";
         return nullQuadratic; //TODO: add support for unsimplifiable answers
     }
@@ -125,22 +140,13 @@ Fraction simplifyFraction(Fraction fraction)
                 divisionHappened = true;
             }
         }
-
-
     }
-
-    //check if they can both divide by every number until the number is bigger then ![half of either of them] both of them?
-    //if so divide them by that number, then keep going through until no division happens
-    //while (divisionHappened)
-        //divisionHappened = false;
-
-
-
     return fraction;
 }
 
 int cleanSqrt(int num)
 {
+    //add a while loop?
     if (!num)
         return num;
     
@@ -149,4 +155,22 @@ int cleanSqrt(int num)
             return i;
     }
     return -1;
+}
+
+Square simplifySquare(Square square)
+{
+    if (cleanSqrt(square.root)) { //logic to simplify expression
+      square.coefficient *= cleanSqrt(square.root);
+      square.root = 1;
+    } else {
+      for (int i = (numFactors(square.root) - 1); i > 2; --i) {
+          int factor{getFactor(square.root, (i))};
+
+          if (!(enteredRoot % factor))
+              if (cleanSqrt(factor)) {
+                  enteredRoot /= factor;
+                  enteredCof *= cleanSqrt(factor);
+              }
+      }
+    }
 }
