@@ -16,7 +16,20 @@ struct QuadraticAnswer {
     SquareRoot squareRoot;
 };
 
+struct Quadratic {
+    QuadraticAnswer posAnswer;
+    QuadraticAnswer negAnswer;
+};
+
+//these are for indicating an error
+Fraction const nullFraction{-1, -1};
+SquareRoot const nullSquareRoot{-1, -1};
+QuadraticAnswer const nullQuadraticAnswer{nullFraction, nullSquareRoot};
+Quadratic const nullQuadratic{nullQuadraticAnswer, nullQuadraticAnswer};
+
 Fraction simplifyFraction(Fraction fraction);
+
+Quadratic quadraticSimplifier(int a, int b, int c);
 
 int cleanSqrt(int num);
 
@@ -39,72 +52,57 @@ int main()
     int c{};
     std::cin >> c;
 
-    //get a, b, c
-    //root = b^2 - 4ac
-    //simplify root
-    //denominator = 2a
-    //numerator = -b
+    Quadratic quadratic{quadraticSimplifier(a, b, c)};
+    
+    std::cout << quadratic.posAnswer.fraction.numerator << '/' << quadratic.posAnswer.fraction.denominator
+    << quadratic.negAnswer.fraction.numerator << '/' << quadratic.negAnswer.fraction.denominator << '\n';
+}
 
-    //TODO: MAKE STRUCT FOR ROOT AND COEFFICIENT
+//quadratic simplifier
+Quadratic quadraticSimplifier(int a, int b, int c)
+{
     QuadraticAnswer answer{};
     answer.squareRoot.root = (b * b) - (4 * a * c);
 
-    //int root{(b * b) - (4 * a * c)};
     if (answer.squareRoot.root < 0) {
         std::cout << "unsolvable.\n";
-        return 0;
+        return nullQuadratic;
     }
     answer.squareRoot.coefficient = 1;
 
-    //this is being moved closer to the other logic for now
-    // if (cleanSqrt(root)) {
-    //     coefficient = cleanSqrt(root);
-    //     root = 1;
-    // }
-
-    //for the time being, we're assuming we can always get the root of `root`
+    
     // //TODO: MAKE THIS INTO A FUNCTION
     // for (int i = (numFactors(root) - 1); i > 2; --i) {
     //     int factor{getFactor(root, i)};
 
-    //     if (!(root % factor))
-    //         if (cleanSqrt(factor)) {
-    //             root /= factor;
-    //             coefficient *= cleanSqrt(factor);
-    //         }
-    // }
 
-    //int numerator{-b};
     answer.fraction.numerator = -b;
-    //int denominator{2 * a};
     answer.fraction.denominator = (2 * a);
     
     QuadraticAnswer posAnswer;
     QuadraticAnswer negAnswer;
 
-    if (cleanSqrt(answer.squareRoot.root) != -1) {
+    //for the time being, we're assuming we can always get the root
+    if (cleanSqrt(answer.squareRoot.root) != -1) { //triggers if we can simplify the root
         posAnswer.fraction.numerator = answer.fraction.numerator + cleanSqrt(answer.squareRoot.root);
         negAnswer.fraction.numerator = answer.fraction.numerator - cleanSqrt(answer.squareRoot.root);
+
+        //tells main to only print the fraction
+        //TODO: replace with a const(expr?) Fraction struct
+        posAnswer.squareRoot.coefficient = -1;
+        posAnswer.squareRoot.root = -1;
+        negAnswer.squareRoot.coefficient = -1;
+        negAnswer.squareRoot.root = -1;
+
+        posAnswer.fraction = simplifyFraction(posAnswer.fraction);
+        negAnswer.fraction = simplifyFraction(negAnswer.fraction);
+
+        Quadratic quadratic{posAnswer, negAnswer};
+        return quadratic;
     } else {
         std::cout << "cannot simplify root.\n";
-        return 0; //TODO: add support for unsimplifiable answers
+        return nullQuadratic; //TODO: add support for unsimplifiable answers
     }
-    
-    //Fraction posanswer{(numerator + root), denominator};
-    //posanswer = simplifyFraction(posanswer);
-    posAnswer.fraction = simplifyFraction(posAnswer.fraction);
-
-    //Fraction neganswer{(numerator - root), denominator};
-    //neganswer = simplifyFraction(neganswer);
-
-    std::cout << "x = " << posanswer.fraction.numerator << '/' << posanswer.denominator
-    << ", " << "x = " << neganswer.fraction.numerator << '/' << neganswer.denominator << '\n';
-
-    //2 parts:
-    //(numerator + root) / denominator
-    //(numerator - root) / denominator
-    //simplify each fraction
-
 }
 
 Fraction simplifyFraction(Fraction fraction)
