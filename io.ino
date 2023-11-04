@@ -1,3 +1,11 @@
+void print(String topText, String bottomText = "")
+{
+    lcd.clear();
+    lcd.print(topText);
+    lcd.setCursor(0, 1);
+    lcd.print(bottomText);
+}
+
 int getNumInput(bool& backPressed) //I reallyyyyyy hope this works
 {
     lcd.clear();
@@ -85,8 +93,7 @@ int validateNumInput(int pressedKey, int enteredNum)
     int pressedNum = pressedKey - 48; //subtracts 48 to get the ascii digits down to their actual values(0 is ascii 48, etc)
     if ((pressedNum >= 0) && (pressedNum <= 9) && !(!enteredNum && !pressedNum)) {
         if (enteredNum > ((65535 - pressedNum) / 10) ) { //arduino is weird with ints more then 16 bit, so don't allow them
-            lcd.clear();
-            lcd.print("Max num size");
+            print("Max num size");
 
             while (!digitalRead(enterButton)) {}
             delay(50);
@@ -112,17 +119,9 @@ bool input(int const button)
         return false;
 
     delay(50);
-    while (digitlRead(button)) {}
+    while (digitalRead(button)) {}
     delay(50);
     return true;
-}
-
-void print(String topText; String bottomText)
-{
-    lcd.clear();
-    lcd.print(topText);
-    lcd.setCursor(0, 1);
-    lcd.print(bottomText);
 }
 
 void waitForButton(int button)
