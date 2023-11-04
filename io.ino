@@ -3,7 +3,7 @@ int getNumInput(bool& backPressed) //I reallyyyyyy hope this works
     lcd.clear();
     uint16_t enteredNum{0};
     lcd.print(enteredNum);
-    while (true) {
+    while (!backPressed) {
 
         char pressedKey = keypad.getKey();
         enteredNum = validateNumInput(pressedKey, enteredNum);
