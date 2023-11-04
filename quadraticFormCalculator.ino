@@ -12,5 +12,5 @@ int quadCalc()
   //handle different outputs
 
 
-
+  return 0;
 }

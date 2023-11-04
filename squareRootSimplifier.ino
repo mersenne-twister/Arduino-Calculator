@@ -79,6 +79,9 @@ void squareSimplifier()
       }
     }
 
+    if (backPressed)
+      break; //band aid fix, will change most likely when implementing io functions
+
     lcd.clear();
     lcd.print("r:");
     lcd.print(enteredRoot);
