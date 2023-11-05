@@ -2,10 +2,14 @@
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
 #include "main.h"
+#include "calculators.h"
 #include "io.h"
 
 byte constexpr ROWS{4};
 byte constexpr COLS{4};
+
+byte rowPins[ROWS]{9, 8, 7, 6}; //byte array can't be const
+byte colPins[COLS]{5, 4, 3, 2};
 
 char constexpr keys[ROWS][COLS]{
 {'1', '2', '3', '/'},
@@ -14,27 +18,28 @@ char constexpr keys[ROWS][COLS]{
 {'_', '0', '.', '+'} //underscore represents negative instead of subtraction, and will still print out '-'
 };
 
-byte rowPins[ROWS]{9, 8, 7, 6};
-byte colPins[COLS]{5, 4, 3, 2};
-
 Keypad keypad{Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS)};
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-void setup() {
-    pinMode(backButton, INPUT);
-    pinMode(enterButton, INPUT);
-    pinMode(clearButton, INPUT);
-    pinMode(deleteButton, INPUT);
+void activateCalculator(int currentMenu);
 
-    Serial.begin(9600);
-  
-    lcd.init();
-    lcd.clear();
-    lcd.backlight();
+void setup()
+{
+	pinMode(backButton, INPUT);
+	pinMode(enterButton, INPUT);
+	pinMode(clearButton, INPUT);
+	pinMode(deleteButton, INPUT);
+
+	Serial.begin(9600);
+
+	lcd.init();
+	lcd.clear();
+	lcd.backlight();
 }
 
-void loop() {
+void loop()
+{
 	String const menus[16] = { //this would be constexpr but apparently arduino strings can't be
 	"Exact Arithmetic", "   Calculator", //leading spaces for center allignment
 	" Dec Arithmetic", "   Calculator",
@@ -51,93 +56,58 @@ void loop() {
 	int currentMenu{0};
 	write(menus[currentMenu], menus[currentMenu + 1]);
 	while (true) {
-		bool buttonPressed{false};
-		while (!buttonPressed) {
-			if (digitalRead(enterButton)) {
-				delay(50);
-				while (digitalRead(enterButton));
-
-				switch (currentMenu) {
-				case 0:
-					//ex arithmetic calc
-				case 2:
-					//dec arithmetic calc
-				case 4:
-					//factor pair calc
-				case 6:
-					//sqrt simpl
-				case 8:
-					//sqrt calc
-				case 10:
-					//fract simpl
-				case 12:
-					//pyth theo calc
-				case 14:
-					//quad form calc
-				default:
-					lcd.clear();
-					lcd.print("ERROR BAD MENU");
-					while (true);
-				}
-
-				write(menus[currentMenu], menus[currentMenu + 1]);
-			}
-
-			if (digitalRead(deleteButton)) {
-				buttonPressed = true;
-				delay(50); //debounce delay
-
-				currentMenu += 2;
-
-				if (currentMenu > 12)
-					currentMenu = 0;
-
-				write(menus[currentMenu], menus[currentMenu + 1]);
-				while (digitalRead(deleteButton)); //wait until they lift the button up
-				delay(50);
-			}
-
-			if (digitalRead(clearButton)) {
-				buttonPressed = true;
-				delay(50); //debounce delay
-
-				currentMenu -= 2;
-
-				if (currentMenu < 0)
-					currentMenu = 12;
-
-				write(menus[currentMenu], menus[currentMenu + 1]);
-				while (digitalRead(clearButton)); //wait until they lift the button up
-				delay(50);
-			}
+		switch (isInput()) {
+		case enterButton:
+			activateCalculator(currentMenu);
+			write(menus[currentMenu], menus[currentMenu + 1]);
+			break;
+		case clearButton:
+			currentMenu -= 2;
+			if (currentMenu < 0)
+				currentMenu = 14;
+			write(menus[currentMenu], menus[currentMenu + 1]);
+			break;
+		case deleteButton:
+			currentMenu += 2;
+			if (currentMenu > 14)
+				currentMenu = 0;
+			write(menus[currentMenu], menus[currentMenu + 1]);
+			break;
+		case backButton: //TODO: add use for backbutton here
+		default:
+			break;
 		}
-
-
-
-
 	}
-
-	//select if enter
-	//cycle if delete
-
-    //TODO: divide by zero thought you were slick didn't ya shutting downc:\Users\Jamie\source\repos\tests\Arduino-Calculator\Arduino-Calculator.ino
-    //divide by zero unlocks secret mode??
-
-
 }
 
-//TODO: switch while loops to semicolon
+void activateCalculator(int currentMenu)
+{
+	switch (currentMenu) {
+	case 0:
+		//ex arithmetic calc
+	case 2:
+		//dec arithmetic calc
+	case 4:
+		//factor pair calc
+	case 6:
+		//sqrt simpl
+	case 8:
+		//sqrt calc
+	case 10:
+		//fract simpl
+	case 12:
+		//pyth theo calc
+	case 14:
+		//quad form calc
+	default:
+		write("ERROR BAD MENU");
+		while (true);
+	}
+}
 
-//likely won't use this
-////enter the expression to assert, and the same expression in quotes so we can find the assertion
-//void assert(bool isValid, String assertion)
-//{
-//    if (!isValid) {
-//        lcd.clear();
-//        lcd.print("   ASSERTION");
-//        lcd.setCursor(0, 1);
-//        lcd.print("     ERROR");
-//        Serial.print("ASSERTION ERROR: ");
-//        Serial.println(assertion);
-//    }
-//}
+//TODO: make sure no unnecessary funcs in headers
+
+//TODO: divide by zero thought you were slick didn't ya shutting down
+//divide by zero unlocks secret mode??
+
+//TODO: switch while loops to semicolon
