@@ -1,4 +1,7 @@
 #include <Arduino.h>
+#include "io.h"
+#include "main.h"
+#include "math.h"
 
 //TODO: use factor pair struct
 void printFactors(int factor, int page)
@@ -24,7 +27,7 @@ int numFactors(int factor)
     return amountFactors;
 }
 
-uint getFactor(uint16_t composite, int numFactor)
+unsigned int getFactor(unsigned int composite, int numFactor)
 {
     int currentFactor{-1}; //causes the first valid factor to set it to zero, so we can start from 0 instead of 1
     for (uint i = 1; (i <= (composite / 2)) && (i <= (composite / i)); ++i) {
