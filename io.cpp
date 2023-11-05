@@ -45,7 +45,7 @@ int isInput()
 
 void waitForButton(int button0, int button1 = 0, int button2 = 0, int button3 = 0)
 {
-	while (!input(button0) || !input(button1) || !input(button2) || !input(button3));
+	while (!(input(button0) || input(button1) || input(button2) || input(button3)));
 }
 
 int validateNumInput(char pressedKey, unsigned int enteredNum)
