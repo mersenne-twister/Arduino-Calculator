@@ -11,7 +11,7 @@ void printFactors(unsigned factor, int page)
     lcd.clear();
 
     for (int i = 0; i < 6; ++i) {
-        lcd.setCursor((i / 2 * 5), (i % 2));
+        lcd.setCursor((i / 2 * 6), (i % 2));
         if (getFactor(factor, (page + i)))
             lcd.print(getFactor(factor, (page + i)));
     }
