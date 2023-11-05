@@ -49,7 +49,7 @@ void loop() {
 	};
 
 	int currentMenu{0};
-	print(menus[currentMenu], menus[currentMenu + 1]);
+	write(menus[currentMenu], menus[currentMenu + 1]);
 	while (true) {
 		bool buttonPressed{false};
 		while (!buttonPressed) {
@@ -80,7 +80,7 @@ void loop() {
 					while (true);
 				}
 
-				print(menus[currentMenu], menus[currentMenu + 1]);
+				write(menus[currentMenu], menus[currentMenu + 1]);
 			}
 
 			if (digitalRead(deleteButton)) {
@@ -92,7 +92,7 @@ void loop() {
 				if (currentMenu > 12)
 					currentMenu = 0;
 
-				print(menus[currentMenu], menus[currentMenu + 1]);
+				write(menus[currentMenu], menus[currentMenu + 1]);
 				while (digitalRead(deleteButton)); //wait until they lift the button up
 				delay(50);
 			}
@@ -106,7 +106,7 @@ void loop() {
 				if (currentMenu < 0)
 					currentMenu = 12;
 
-				print(menus[currentMenu], menus[currentMenu + 1]);
+				write(menus[currentMenu], menus[currentMenu + 1]);
 				while (digitalRead(clearButton)); //wait until they lift the button up
 				delay(50);
 			}
