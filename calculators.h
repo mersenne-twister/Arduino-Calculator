@@ -5,4 +5,6 @@
 
 void factPairCalc();
 
+void factorsMenu(bool& backPressed, unsigned int enteredNum);
+
 #endif //CALCULATORS_102505112023_H
