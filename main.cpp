@@ -90,7 +90,7 @@ void activateCalculator(int currentMenu)
 		//dec arithmetic calc
 		break;
 	case 4:
-		factPairCalc;
+		factPairCalc();
 		break;
 	case 6:
 		//sqrt simpl
