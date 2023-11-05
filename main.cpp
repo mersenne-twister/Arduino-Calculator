@@ -88,7 +88,7 @@ void activateCalculator(int currentMenu)
 	case 2:
 		//dec arithmetic calc
 	case 4:
-		//factor pair calc
+		factPairCalc;
 	case 6:
 		//sqrt simpl
 	case 8:
