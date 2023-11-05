@@ -85,20 +85,28 @@ void activateCalculator(int currentMenu)
 	switch (currentMenu) {
 	case 0:
 		//ex arithmetic calc
+		break;
 	case 2:
 		//dec arithmetic calc
+		break;
 	case 4:
 		factPairCalc;
+		break;
 	case 6:
 		//sqrt simpl
+		break;
 	case 8:
 		//sqrt calc
+		break;
 	case 10:
 		//fract simpl
+		break;
 	case 12:
 		//pyth theo calc
+		break;
 	case 14:
 		//quad form calc
+		break;
 	default:
 		write("ERROR BAD MENU");
 		while (true);
