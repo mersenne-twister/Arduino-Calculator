@@ -433,3 +433,11 @@ FodyWeavers.xsd
 /cpp-files/Arduino-Calculator.vcxproj
 /cpp-files/Arduino-Calculator.vcxproj.filters
 .theia/launch.json
+temp/arithmeticCalculator.ino
+temp/factorPairCalculator.ino
+temp/io.ino
+temp/mainMenu.ino
+temp/pythagoreanTheoCalculator.ino
+temp/quadraticFormCalculator.ino
+temp/squareRootSimplifier.ino
+temp/fractSimplifer.ino
