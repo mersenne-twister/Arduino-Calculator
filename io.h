@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 //prints to the lcd
-void print(String topText, String bottomText = "");
+void write(String topText, String bottomText = "");
 
 //returns a bool if there is input on a given pin, and handles debouncing
 bool input(int button);
