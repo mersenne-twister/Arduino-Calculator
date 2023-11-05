@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
 #include "main.h"
@@ -7,7 +8,6 @@ void setup() {
     pinMode(enterButton, INPUT);
     pinMode(clearButton, INPUT);
     pinMode(deleteButton, INPUT);
-
 
     Serial.begin(9600);
   
