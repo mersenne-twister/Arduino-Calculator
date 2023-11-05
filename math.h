@@ -3,10 +3,10 @@
 
 #include <Arduino.h>
 
-void printFactors(int factor, int page);
+void printFactors(unsigned factor, int page);
 
-int numFactors(int factor);
+int numFactors(unsigned int factor);
 
-unsigned int getFactor(uint16_t composite, int numFactor);
+unsigned int getFactor(unsigned int composite, int numFactor);
 
 #endif //MATH_111005112023_H
