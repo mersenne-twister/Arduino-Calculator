@@ -47,7 +47,6 @@ void mainMenu()
 				case 8:
 
 				case 10:
-					//quadCalc();
 				case 12:
 
 				default:
