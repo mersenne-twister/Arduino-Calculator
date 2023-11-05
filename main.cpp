@@ -1,5 +1,4 @@
 #include <Arduino.h>
-//not neccessary? it compiles fine without, and including it doesn't help with intellisense
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
 #include "main.h"
