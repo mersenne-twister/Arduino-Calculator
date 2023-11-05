@@ -5,9 +5,13 @@
 
 //prints to the lcd
 void write(String topText, String bottomText = "");
+void write(unsigned int topText);
 
 //returns a bool if there is input on a given pin, and handles debouncing
 bool input(int button);
+
+//returns the pin number of any activated pin
+int isInput();
 
 //waits for input on up to 4 pins, and handles debouncing
 void waitForButton(int button);

@@ -1,7 +1,10 @@
 #include <Arduino.h>
-#include "main.h"
+#include <LiquidCrystal_I2C.h>
+#include <Keypad.h>
+#include "mian.h"
 
-void print(String topText, String bottomText = "")
+//TOOD: replace all lcd interaction with this function
+void write(String topText, String bottomText = "")
 {
     lcd.clear();
     lcd.print(topText);
@@ -9,13 +12,16 @@ void print(String topText, String bottomText = "")
     lcd.print(bottomText);
 }
 
+void write(unsigned int topText)
+{
+    lcd.clear();
+    lcd.print(topText);
+}
+
 //TODO: replace all input with this function
 bool input(int button)
 {
-    if ((button < 2) || (button > 13))
-        return false;
-
-    if (!digitalRead(button))
+    if ((button < 2) || (button > 13) || !digitalRead(button))
         return false;
 
     delay(50);
@@ -24,31 +30,37 @@ bool input(int button)
     return true;
 }
 
+int isInput()
+{
+    if (input(backButton))
+        return backButton;
+    else if (input(enterButton))
+        return enterButton;
+    else if (input(clearButton))
+        return clearButton;
+    else if (input(deleteButton))
+        return deleteButton;
+    return 0;
+}
+
+
+
 void waitForButton(int button0, int button1 = 0, int button2 = 0, int button3 = 0)
 {
     while (!input(button0) || !input(button1) || !input(button2) || !input(button3));
-    //while (!digitalRead(button));
-    //delay(50);
-    //while (digitalRead(button));
-    //delay(50);
 }
 
 int validateNumInput(char pressedKey, unsigned int enteredNum)
 {
-    int pressedNum = pressedKey - 48; //subtracts 48 to get the ascii digits down to their actual values(0 is ascii 48, etc)
+    int pressedNum = (pressedKey - '0');
     if ((pressedNum >= 0) && (pressedNum <= 9) && !(!enteredNum && !pressedNum)) {
         if (enteredNum > ((65535 - pressedNum) / 10)) { //arduino is weird with ints more then 16 bit, so don't allow them
-            print("Max num size");
-
+            write("Max num size");
             waitForButton(enterButton);
-
-            lcd.clear();
-            lcd.print(enteredNum);
         } else {
             enteredNum = (enteredNum * 10) + pressedNum;
-            lcd.clear();
-            lcd.print(enteredNum);
         }
+        write(enteredNum);
     }
 
     return enteredNum;
@@ -56,9 +68,8 @@ int validateNumInput(char pressedKey, unsigned int enteredNum)
 
 int getNumInput(bool& backPressed)
 {
-    lcd.clear();
     uint16_t enteredNum{0};
-    lcd.print(enteredNum);
+    write(enteredNum);
     while (!backPressed) {
 
         char pressedKey = keypad.getKey();
@@ -67,41 +78,26 @@ int getNumInput(bool& backPressed)
         if (pressedKey)
             delay(50); //debounce delay
 
-        if (input(backButton))
+        switch (isInput()) {
+        case backButton:
             backPressed = true;
-
-        if (input(enterButton)) {
-
+        case enterButton:
             if (enteredNum) {
                 break;
             } else {
-                print("Must enter", "number");
+                write("Must enter", "number");
                 waitForButton(enterButton);
-                lcd.clear();
-                lcd.print(enteredNum);
+                write(enteredNum);
             }
-        }
-
-        if (digitalRead(clearButton)) {
-            delay(50);
-            while (digitalRead(clearButton)) {
-            }
-            delay(50);
+        case clearButton:
             enteredNum = 0;
-            lcd.clear();
-            lcd.print(enteredNum);
-        }
-
-        if (digitalRead(deleteButton)) {
-            delay(50);
+            write(enteredNum);
+        case deleteButton:
             enteredNum /= 10;
-            lcd.clear();
-            lcd.print(enteredNum);
-            while (digitalRead(deleteButton)) {
-            }
-            delay(50);
+            write(enteredNum);
+        default:
+            break;
         }
     }
-
     return enteredNum;
 }
