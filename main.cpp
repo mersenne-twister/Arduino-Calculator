@@ -2,7 +2,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
 #include "main.h"
-#include "mainMenu.h"
+#include "io.h"
 
 byte constexpr ROWS{4};
 byte constexpr COLS{4};
@@ -36,7 +36,7 @@ void setup() {
 
 void loop() {
 	String const menus[16] = { //this would be constexpr but apparently arduino strings can't be
-	" Ex Arithmetic", "   Calculator", //leading spaces for center allignment
+	"Exact Arithmetic", "   Calculator", //leading spaces for center allignment
 	" Dec Arithmetic", "   Calculator",
 	"  Factor Pair", "   Calculator",
 	"  Square Root", "   Simplifier",
