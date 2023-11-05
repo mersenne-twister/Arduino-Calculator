@@ -5,7 +5,7 @@
 
 void print(String topText, String bottomText = "");
 
-bool input(int const button);
+bool input(int button);
 
 void waitForButton(int button);
 

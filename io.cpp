@@ -10,7 +10,7 @@ void print(String topText, String bottomText = "")
 }
 
 //TODO: replace all input with this function
-bool input(int const button)
+bool input(int button)
 {
     if (!digitalRead(button))
         return false;
