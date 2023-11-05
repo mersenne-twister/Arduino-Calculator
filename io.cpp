@@ -66,7 +66,7 @@ int validateNumInput(char pressedKey, unsigned int enteredNum)
 
 int getNumInput(bool& backPressed)
 {
-	uint16_t enteredNum{0};
+	unsigned int enteredNum{0};
 	write(enteredNum);
 	while (!backPressed) {
 
