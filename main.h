@@ -11,6 +11,9 @@ int constexpr enterButton{11};
 int constexpr clearButton{12};
 int constexpr deleteButton{13};
 
+//forward declaration for lcd because the odr rule hates me with a passion
 extern LiquidCrystal_I2C lcd;
+
+extern Keypad keypad;
 
 #endif //MAIN_175404112023_H
