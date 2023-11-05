@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
-#include "mian.h"
+#include "main.h"
 
 //TOOD: replace all lcd interaction with this function
 void write(String topText, String bottomText = "")
@@ -81,23 +81,26 @@ int getNumInput(bool& backPressed)
         switch (isInput()) {
         case backButton:
             backPressed = true;
+            return 1; //would return 0 but that might break something
         case enterButton:
             if (enteredNum) {
-                break;
+                return enteredNum;
             } else {
                 write("Must enter", "number");
                 waitForButton(enterButton);
                 write(enteredNum);
             }
+            break;
         case clearButton:
             enteredNum = 0;
             write(enteredNum);
+            break;
         case deleteButton:
             enteredNum /= 10;
             write(enteredNum);
+            break;
         default:
             break;
         }
     }
-    return enteredNum;
 }
