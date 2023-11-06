@@ -3,9 +3,33 @@
 
 #include <Arduino.h>
 
-void printFactors(unsigned factor, int page);
+struct Fraction {
+    int numerator;
+    int denominator;
+};
 
-int numFactors(unsigned int factor);
+struct Square {
+    unsigned int coef;
+    unsigned int root;
+};
+
+struct QuadraticAnswer {
+    Fraction fraction;
+    Square squareRoot;
+};
+
+struct Quadratic {
+    QuadraticAnswer posAnswer;
+    QuadraticAnswer negAnswer;
+};
+
+int cleanSqrt(int root);
+
+Square simplifySquare(Square square);
+
+void printFactors(unsigned int factor, int page);
+
+unsigned int numFactors(unsigned int factor);
 
 unsigned int getFactor(unsigned int composite, int numFactor);
 
