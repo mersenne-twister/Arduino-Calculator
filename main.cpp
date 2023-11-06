@@ -40,12 +40,11 @@ void setup()
 
 void loop()
 {
-	String const menus[16] = { //this would be constexpr but apparently arduino strings can't be
+	String const menus[14] = { //this would be constexpr but apparently arduino strings can't be
 	"Exact Arithmetic", "   Calculator", //leading spaces for center allignment
 	" Dec Arithmetic", "   Calculator",
 	"  Factor Pair", "   Calculator",
 	"  Square Root", "   Simplifier",
-	"  Square Root", "   Calculator",
 	"    Fraction", "   Simplifier",
 	"Pythagorean Theo", "   Calculator",
 	//hook up the root calcs
@@ -64,12 +63,12 @@ void loop()
 		case clearButton:
 			currentMenu -= 2;
 			if (currentMenu < 0)
-				currentMenu = 14;
+				currentMenu = 12;
 			write(menus[currentMenu], menus[currentMenu + 1]);
 			break;
 		case deleteButton:
 			currentMenu += 2;
-			if (currentMenu > 14)
+			if (currentMenu > 12)
 				currentMenu = 0;
 			write(menus[currentMenu], menus[currentMenu + 1]);
 			break;
@@ -93,18 +92,15 @@ void activateCalculator(int currentMenu)
 		factPairCalc();
 		break;
 	case 6:
-		//sqrt simpl
+		squareSimplifier();
 		break;
 	case 8:
-		//sqrt calc
-		break;
-	case 10:
 		//fract simpl
 		break;
-	case 12:
+	case 10:
 		//pyth theo calc
 		break;
-	case 14:
+	case 12:
 		//quad form calc
 		break;
 	default:
