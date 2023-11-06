@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 
+void squareSimplifier();
+
 void factPairCalc();
 
 void factorsMenu(bool& backPressed, unsigned int enteredNum);
