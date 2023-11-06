@@ -4,13 +4,47 @@
 #include "main.h"
 #include "math.h"
 
+void squareSimplifier()
+{
+	bool backPressed{false}; //lets us break out of the inner while loops
+	while (!backPressed) {
+		Square square{0, 0};
+		write(square.coef);
+
+		square.coef = getNumInput<int>(backPressed);
+		if (!square.coef)
+			continue;
+
+		square.root = getNumInput<int>(backPressed, "r:");
+		if (!square.root)
+			continue;
+
+		//if (backPressed)
+		//	break; //band aid fix, will change most likely when implementing io functions
+
+		square = simplifySquare(square);
+
+		//logic to print expression
+		if (square.root == 1) //TODO: restructure this so that we only have one print for each given thing
+			write(square.coef);
+		else if (square.coef == 1)
+			write('r', square.root);
+		else
+			write(square.coef, 'r', square.root);
+
+		idleMenu(backPressed);
+	}
+}
+
 void factPairCalc()
 {
 	bool backPressed{false}; //lets us break out of the outer while loop from inside functions
 	while (!backPressed) {
 
 		unsigned int enteredNum{0};
-		enteredNum = getNumInput(backPressed);
+		enteredNum = getNumInput<unsigned int>(backPressed);
+		if (!enteredNum)
+			continue;
 
 		factorsMenu(backPressed, enteredNum);
 	}
@@ -27,14 +61,18 @@ void factorsMenu(bool& backPressed, unsigned int enteredNum)
 			backPressed = true;
 			break;
 		case enterButton:
-		case clearButton:
 			enteredNum = 0;
 			write(enteredNum);
-			waitForButton(enterButton, clearButton);
 			return; //breaks out of the inner loop, but not the outer one
+		case clearButton:
+			--page;
+			if (page < 0)
+				page = ((numFactors(enteredNum) - 1) / 6);
+			printFactors(enteredNum, page);
+			break;
 		case deleteButton:
 			++page;
-			if (page > ((numFactors(enteredNum) - 1) / 6))
+			if (page > static_cast<int>(((numFactors(enteredNum) - 1) / 6)))
 				page = 0;
 			printFactors(enteredNum, page);
 			break;
