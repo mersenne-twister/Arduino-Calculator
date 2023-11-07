@@ -35,14 +35,19 @@ Square simplifySquare(Square square)
 	return square;
 }
 
-//TODO: use factor pair struct
 void printFactors(unsigned int factor, int page)
 { //max number we would need to display is 5 digits(65535), so we split the space up in groups of 5
-	page *= 6; //so we only have to increase page by one in the logic above
+	page *= 6; //so we only have to increase page by one in the logic
 	lcd.clear();
 
+	int spacing{6}; //6 leaves a space inbetween the 3 outputs, but will cut off the third num if
+	if (getFactor(factor, (page + 5)) >= 10000) //it's got 5 digits
+		spacing = 5;
+
+
+
 	for (int i = 0; i < 6; ++i) {
-		lcd.setCursor((i / 2 * 6), (i % 2));
+		lcd.setCursor((i / 2 * spacing), (i % 2));
 		if (getFactor(factor, (page + i)))
 			lcd.print(getFactor(factor, (page + i)));
 	}
