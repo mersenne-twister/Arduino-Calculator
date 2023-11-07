@@ -113,5 +113,3 @@ void activateCalculator(int currentMenu)
 
 //TODO: divide by zero thought you were slick didn't ya shutting down
 //divide by zero unlocks secret mode??
-
-//TODO: switch while loops to semicolon
