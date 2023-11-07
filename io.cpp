@@ -33,7 +33,6 @@ void write(char arg0, unsigned int arg1)
 	lcd.print(arg1);
 }
 
-//TODO: replace all input with this function
 bool input(int button)
 {
 	if ((button < 2) || (button > 13) || !digitalRead(button))
