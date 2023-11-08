@@ -4,7 +4,7 @@
 #include "main.h"
 #include "math.h"
 
-bool doesOverflow(int x, char optr) //operator
+bool checkOverflow(int x, char optr) //operator
 {
 	//if (enteredNum > ((maxInput - pressedNum) / 10)) {
 	//	write("Max num size");
