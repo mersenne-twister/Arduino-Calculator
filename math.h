@@ -23,7 +23,7 @@ struct Quadratic {
     QuadraticAnswer negAnswer;
 };
 
-int cleanSqrt(int root);
+unsigned int cleanSqrt(unsigned int root);
 
 Square simplifySquare(Square square);
 
