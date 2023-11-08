@@ -4,23 +4,23 @@
 #include <Arduino.h>
 
 struct Fraction {
-    int numerator;
-    int denominator;
+	int numerator;
+	int denominator;
 };
 
 struct Sqrt {
-    unsigned int coef;
-    unsigned int root;
+	unsigned int coef;
+	unsigned int root;
 };
 
 struct QuadraticAnswer {
-    Fraction fraction;
-    Sqrt sqrt;
+	Fraction fraction;
+	Sqrt sqrt;
 };
 
 struct Quadratic {
-    QuadraticAnswer posAnswer;
-    QuadraticAnswer negAnswer;
+	QuadraticAnswer posAnswer;
+	QuadraticAnswer negAnswer;
 };
 
 unsigned int cleanSqrt(unsigned int root);
