@@ -98,7 +98,7 @@ void activateCalculator(int currentMenu)
 		//fract simpl
 		break;
 	case 10:
-		//pyth theo calc
+		pythTheoCalc();
 		break;
 	case 12:
 		//quad form calc
