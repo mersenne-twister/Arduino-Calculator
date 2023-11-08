@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include "main.h"
+#include "math.h"
 
 //prints to the lcd
 void write(String topText, String bottomText = "");
@@ -18,6 +19,8 @@ int isInput();
 
 //waits for input on up to 4 pins, and handles debouncing
 void waitForButton(int button0, int button1 = 0, int button2 = 0, int button3 = 0);
+
+void printSqrt(Square sqrt);
 
 void idleMenu(bool& backPressed);
 
@@ -43,8 +46,8 @@ T validateNumInput(char pressedKey, T enteredNum, String prefixString = "")
 //gets integer input, signed or unsigned
 //unsigned int getNumInput(bool& backPressed, String prefixString = "");
 template <typename T>
-T getNumInput(bool& backPressed, String prefixString = "")
-{
+T getNumInput(bool& backPressed, String prefixString = "", unsigned int minInput = 1)
+{ //TODO: use mininput for type safety?
 	T enteredNum{0};
 	write(prefixString + enteredNum);
 	while (!backPressed) {
@@ -60,7 +63,7 @@ T getNumInput(bool& backPressed, String prefixString = "")
 			backPressed = true;
 			break; //would return 0 but that might break something
 		case enterButton:
-			if (enteredNum) {
+			if (enteredNum >= minInput) {
 				return enteredNum;
 			} else {
 				write("Must enter", "number");
