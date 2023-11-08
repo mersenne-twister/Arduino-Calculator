@@ -3,9 +3,10 @@
 #include <Keypad.h>
 #include "main.h"
 #include "math.h"
+#include "io.h"
 
 //TOOD: replace all lcd interaction with this function
-void write(String topText, String bottomText = "")
+void write(String topText, String bottomText)
 {
 	lcd.clear();
 	lcd.print(topText);
@@ -58,7 +59,13 @@ int isInput()
 	return 0;
 }
 
-void waitForButton(int button0, int button1 = 0, int button2 = 0, int button3 = 0)
+void overflows(bool& backPressed, String errMessage)
+{
+	write("Output too large", errMessage);
+	idleMenu(backPressed);
+}
+
+void waitForButton(int button0, int button1, int button2, int button3)
 {
 	while (!(input(button0) || input(button1) || input(button2) || input(button3)));
 }
