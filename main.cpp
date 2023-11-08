@@ -45,6 +45,7 @@ void loop()
 	" Dec Arithmetic", "   Calculator",
 	"  Factor Pair", "   Calculator",
 	"  Square Root", "   Simplifier",
+	//sqrt calc
 	"    Fraction", "   Simplifier",
 	"Pythagorean Theo", "   Calculator",
 	//hook up the root calcs
