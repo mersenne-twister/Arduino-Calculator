@@ -63,7 +63,7 @@ void waitForButton(int button0, int button1 = 0, int button2 = 0, int button3 = 
 	while (!(input(button0) || input(button1) || input(button2) || input(button3)));
 }
 
-void printSqrt(Square sqrt)
+void printSqrt(Sqrt sqrt)
 { //CONSIDER: use direct lcd interaction to facilitate incorporation with the quadformcalc?		
 	if (sqrt.root == 1) //TODO: restructure this so that we only have one print for each given thing
 		write(sqrt.coef);
@@ -88,4 +88,63 @@ void idleMenu(bool& backPressed)
 			break;
 		}
 	}
+}
+
+unsigned int validateUnsignedInput(char pressedKey, unsigned int enteredNum, String prefixString,
+								   unsigned int maxInput)
+{
+	int pressedNum = (pressedKey - '0');
+	if ((pressedNum >= 0) && (pressedNum <= 9) && !(!enteredNum && !pressedNum)) {
+		if (enteredNum > ((maxInput - pressedNum) / 10)) {
+			write("Max num size");
+			waitForButton(enterButton);
+		} else {
+			enteredNum = (enteredNum * 10) + pressedNum;
+		}
+		write(prefixString + enteredNum);
+	}
+
+	return enteredNum;
+}
+
+//gets integer input, signed or unsigned
+//unsigned int getNumInput(bool& backPressed, String prefixString = "");
+unsigned int getUnsignedInput(bool& backPressed, String prefixString, unsigned int minInput,
+							  unsigned int maxInput)
+{
+	unsigned int enteredNum{0};
+	write(prefixString + enteredNum);
+	while (!backPressed) {
+
+		char pressedKey = keypad.getKey();
+		enteredNum = validateUnsignedInput(pressedKey, enteredNum, prefixString, maxInput);
+
+		if (pressedKey)
+			delay(50); //debounce delay
+
+		switch (isInput()) {
+		case backButton:
+			backPressed = true;
+			break; //would return 0 but that might break something
+		case enterButton:
+			if (enteredNum >= minInput) {
+				return enteredNum;
+			} else {
+				write("Must enter", "number");
+				waitForButton(enterButton);
+				write(prefixString + enteredNum);
+			}
+			break;
+		case clearButton:
+			return 0;
+		case deleteButton:
+			enteredNum /= 10;
+			write(prefixString + enteredNum);
+			break;
+		default:
+			break;
+		}
+	}
+	//only triggers if back is pressed
+	return 1; //would return 0 but that might break something
 }
