@@ -2,6 +2,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
 #include "main.h"
+#include "math.h"
 
 //TOOD: replace all lcd interaction with this function
 void write(String topText, String bottomText = "")
@@ -60,6 +61,16 @@ int isInput()
 void waitForButton(int button0, int button1 = 0, int button2 = 0, int button3 = 0)
 {
 	while (!(input(button0) || input(button1) || input(button2) || input(button3)));
+}
+
+void printSqrt(Square sqrt)
+{ //CONSIDER: use direct lcd interaction to facilitate incorporation with the quadformcalc?		
+	if (sqrt.root == 1) //TODO: restructure this so that we only have one print for each given thing
+		write(sqrt.coef);
+	else if (sqrt.coef == 1)
+		write('r', sqrt.root);
+	else
+		write(sqrt.coef, 'r', sqrt.root);
 }
 
 void idleMenu(bool& backPressed)
