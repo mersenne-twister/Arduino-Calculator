@@ -73,6 +73,7 @@ void sqrtSimplifier()
 		//	break; //band aid fix, will change most likely when implementing io functions
 
 		sqrt = simplifySqrt(sqrt);
+		//if not sqrt then err
 
 		printSqrt(sqrt);
 		idleMenu(backPressed);
