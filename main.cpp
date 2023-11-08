@@ -40,16 +40,16 @@ void setup()
 
 void loop()
 {
-	String const menus[14] = { //this would be constexpr but apparently arduino strings can't be
-	"Exact Arithmetic", "   Calculator", //leading spaces for center allignment
-	" Dec Arithmetic", "   Calculator",
+	String const menus[14 - 8] = { //this would be constexpr but apparently arduino strings can't be
+	//"Exact Arithmetic", "   Calculator", //leading spaces for center allignment
+	//" Dec Arithmetic", "   Calculator",
 	"  Factor Pair", "   Calculator",
 	"  Square Root", "   Simplifier",
 	//sqrt calc
-	"    Fraction", "   Simplifier",
+	//"    Fraction", "   Simplifier",
 	"Pythagorean Theo", "   Calculator",
 	//hook up the root calcs
-	" Quadratic Form", "   Calculator",
+	//" Quadratic Form", "   Calculator",
 	//hook up root calc
 	};
 
@@ -64,12 +64,12 @@ void loop()
 		case clearButton:
 			currentMenu -= 2;
 			if (currentMenu < 0)
-				currentMenu = 12;
+				currentMenu = 12 - 8;
 			write(menus[currentMenu], menus[currentMenu + 1]);
 			break;
 		case deleteButton:
 			currentMenu += 2;
-			if (currentMenu > 12)
+			if (currentMenu > 12 - 8)
 				currentMenu = 0;
 			write(menus[currentMenu], menus[currentMenu + 1]);
 			break;
@@ -83,22 +83,22 @@ void loop()
 void activateCalculator(int currentMenu)
 {
 	switch (currentMenu) {
-	case 0:
+	//case 0:
 		//ex arithmetic calc
-		break;
-	case 2:
+		//break;
+	//case 2:
 		//dec arithmetic calc
-		break;
-	case 4:
+		//break;
+	case 4 - 4:
 		factPairCalc();
 		break;
-	case 6:
+	case 6 - 4:
 		sqrtSimplifier();
 		break;
 	case 8:
 		//fract simpl
 		break;
-	case 10:
+	case 10 - 6:
 		pythTheoCalc();
 		break;
 	case 12:

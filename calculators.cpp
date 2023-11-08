@@ -6,31 +6,41 @@
 
 void pythTheoCalc()
 { //TODO: FIX INTEGER OVERFLOW
-	//TODO: add actual type safety lol
 	bool backPressed{false};
 	while (!backPressed) {
-	//unsigned ints cause we won't ever be getting
-
-
-	//get a
 		unsigned int a{getUnsignedInput(backPressed, "a:")}; //all 3 calls int originally
 		a = (a * a);
 
 		unsigned int b{0};
 		unsigned int c{0};
 		unsigned int x{};
+		bool errOverflow{false};
 		while (!b && !c) {
 			b = getUnsignedInput(backPressed, "b:", 0);
 			if (!b) {
 				c = getUnsignedInput(backPressed, "c:", 0);
 				if (!c)
 					continue;
+				//!((c * c) / c != c) ?: errOverflow = true;
+				if ((c * c) / c != c)
+					errOverflow = true;
 				x = ((c * c) - a);
-			} else
+			} else {
+				//check for overflow
+				if ((((c * c) / c) + a) != (c + a))
+					errOverflow = true;
 				x = (a + (b * b));
+
+			}
 		}
 
-		Sqrt sqrt{1, x};
+		if (errOverflow) {
+			write("Output too large", "try sqrt calc");
+			idleMenu(backPressed);
+			continue;
+		}
+
+		Sqrt sqrt{1, x, false};
 
 		//////////if (cleanSqrt(x)) { //DEPRECATED: the conditions should never be met (for the simplifier this will be needed)
 		//////////    std::cout << cleanSqrt(x) << '\n';
@@ -38,15 +48,11 @@ void pythTheoCalc()
 		//////////}
 
 
-
-		//while (numFactors(root) > 2) { //keep going until root is prime
-		for (unsigned int i = (numFactors(sqrt.root) - 1); i > 2; --i) {
-			unsigned int factor{getFactor(sqrt.root, i)};
-			if (!(sqrt.root % factor))
-				if (cleanSqrt(factor)) {
-					sqrt.root /= factor;
-					sqrt.coef *= cleanSqrt(factor);
-				}
+		sqrt = simplifySqrt(sqrt);
+		if (sqrt.err) {
+			write("Output too large", "try sqrt calc");
+			idleMenu(backPressed);
+			continue;
 		}
 
 		printSqrt(sqrt);
@@ -58,7 +64,7 @@ void sqrtSimplifier()
 { //TODO: FIX INTEGER OVERFLOW
 	bool backPressed{false}; //lets us break out of the inner while loops
 	while (!backPressed) {
-		Sqrt sqrt{0, 0};
+		Sqrt sqrt{};
 		write(sqrt.coef);
 
 		sqrt.coef = getUnsignedInput(backPressed); //these calls originally int
@@ -73,7 +79,11 @@ void sqrtSimplifier()
 		//	break; //band aid fix, will change most likely when implementing io functions
 
 		sqrt = simplifySqrt(sqrt);
-		//if not sqrt then err
+		if (sqrt.err) {
+			write("Output too large", "try sqrt calc");
+			idleMenu(backPressed);
+			continue;
+		}
 
 		printSqrt(sqrt);
 		idleMenu(backPressed);

@@ -4,16 +4,20 @@
 #include "main.h"
 #include "math.h"
 
-bool checkOverflow(int x, char optr) //operator
-{
-	//if (enteredNum > ((maxInput - pressedNum) / 10)) {
-	//	write("Max num size");
-	//	waitForButton(enterButton);
-	//} else {
-	//	enteredNum = (enteredNum * 10) + pressedNum;
-	//}
-	//write(prefixString + enteredNum);
-}
+//bool checkOverflow(bool& backPressed, int x, char optr, int y, String errMessage = "try again") //operator
+//{
+//	/*if (enteredNum > ((maxInput - pressedNum) / 10)) {
+//		write("Max num size");
+//		waitForButton(enterButton);
+//	} else {
+//		enteredNum = (enteredNum * 10) + pressedNum;
+//	}
+//	write(prefixString + enteredNum);*/
+//
+//
+//	write("Output too large", errMessage);
+//	idleMenu(backPressed);
+//}
 
 unsigned int cleanSqrt(unsigned int root)
 {
@@ -32,19 +36,28 @@ unsigned int cleanSqrt(unsigned int root)
 Sqrt simplifySqrt(Sqrt sqrt)
 {
 	if (cleanSqrt(sqrt.root) != 65535) {
-		//check if overflow
-		//if so return 0
+		if (cleanSqrt(sqrt.root) > (65535 / sqrt.coef))
+			sqrt.err = true;
 		sqrt.coef *= cleanSqrt(sqrt.root);
 		sqrt.root = 1;
 	} else {
 		for (unsigned int i = (numFactors(sqrt.root) - 1); i > 2; --i) {
 			unsigned int factor{getFactor(sqrt.root, (i))};
 			if (!(sqrt.root % factor) && (cleanSqrt(factor) != 65535)) {
+				if (cleanSqrt(factor) > (65535 / sqrt.coef))
+					sqrt.err = true;
+
 				sqrt.coef *= cleanSqrt(factor);
 				sqrt.root /= factor;
 			}
 		}
 	}
+
+	//Serial.print("sqrt.root = ");
+	//Serial.print(sqrt.root);
+	//Serial.print("   sqrt.coef = ");
+	//Serial.println(sqrt.coef);
+
 	return sqrt;
 }
 
