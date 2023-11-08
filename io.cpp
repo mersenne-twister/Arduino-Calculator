@@ -59,12 +59,6 @@ int isInput()
 	return 0;
 }
 
-void overflows(bool& backPressed, String errMessage)
-{
-	write("Output too large", errMessage);
-	idleMenu(backPressed);
-}
-
 void waitForButton(int button0, int button1, int button2, int button3)
 {
 	while (!(input(button0) || input(button1) || input(button2) || input(button3)));
