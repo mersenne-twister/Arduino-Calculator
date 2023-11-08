@@ -11,6 +11,7 @@ struct Fraction {
 struct Sqrt {
 	unsigned int coef;
 	unsigned int root;
+	bool err;
 };
 
 struct QuadraticAnswer {
