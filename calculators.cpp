@@ -4,8 +4,60 @@
 #include "main.h"
 #include "math.h"
 
+void pythTheoCalc()
+{
+	//TODO: add actual type safety lol
+	bool backPressed{false};
+	while (!backPressed) {
+	//unsigned ints cause we won't ever be getting
+
+
+	//get a
+		unsigned int a{getNumInput<int>(backPressed, "a:")};
+		a = (a * a);
+
+		unsigned int b{0};
+		unsigned int c{0};
+		unsigned int x{};
+		while (!b && !c) {
+			b = getNumInput<int>(backPressed, "b:", 0);
+			if (!b) {
+				c = getNumInput<int>(backPressed, "c:", 0);
+				if (!c)
+					continue;
+				else
+					x = ((c * c) - a);
+			} else
+				x = (a + (b * b));
+		}
+
+		Square square{1, x};
+
+		//////////if (cleanSqrt(x)) { //DEPRECATED: the conditions should never be met (for the simplifier this will be needed)
+		//////////    std::cout << cleanSqrt(x) << '\n';
+		//////////    return 0;
+		//////////}
+
+
+
+		//while (numFactors(root) > 2) { //keep going until root is prime
+		for (unsigned int i = (numFactors(square.root) - 1); i > 2; --i) {
+			unsigned int factor{getFactor(square.root, i)};
+			if (!(square.root % factor))
+				if (cleanSqrt(factor)) {
+					square.root /= factor;
+					square.coef *= cleanSqrt(factor);
+				}
+		}
+
+		printSqrt(square);
+		idleMenu(backPressed);
+	}
+}
+
 void squareSimplifier()
 {
+	//TODO: revevaluate signed ints here!!!
 	bool backPressed{false}; //lets us break out of the inner while loops
 	while (!backPressed) {
 		Square square{0, 0};
@@ -24,14 +76,7 @@ void squareSimplifier()
 
 		square = simplifySquare(square);
 
-		//logic to print expression
-		if (square.root == 1) //TODO: restructure this so that we only have one print for each given thing
-			write(square.coef);
-		else if (square.coef == 1)
-			write('r', square.root);
-		else
-			write(square.coef, 'r', square.root);
-
+		printSqrt(square);
 		idleMenu(backPressed);
 	}
 }
