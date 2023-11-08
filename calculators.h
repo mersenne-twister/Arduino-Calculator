@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 
+void pythTheoCalc();
+
 void squareSimplifier();
 
 void factPairCalc();
