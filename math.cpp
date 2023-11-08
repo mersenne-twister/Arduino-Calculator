@@ -18,21 +18,21 @@ unsigned int cleanSqrt(unsigned int root)
 	return 65535; //65535 will never be the factor of a 16 bit int
 }
 
-Sqrt simplifySquare(Sqrt square)
+Sqrt simplifySqrt(Sqrt sqrt)
 {
-	if (cleanSqrt(square.root) != 65535) {
-		square.coef *= cleanSqrt(square.root);
-		square.root = 1;
+	if (cleanSqrt(sqrt.root) != 65535) {
+		sqrt.coef *= cleanSqrt(sqrt.root);
+		sqrt.root = 1;
 	} else {
-		for (unsigned int i = (numFactors(square.root) - 1); i > 2; --i) {
-			unsigned int factor{getFactor(square.root, (i))};
-			if (!(square.root % factor) && (cleanSqrt(factor) != 65535)) {
-				square.coef *= cleanSqrt(factor);
-				square.root /= factor;
+		for (unsigned int i = (numFactors(sqrt.root) - 1); i > 2; --i) {
+			unsigned int factor{getFactor(sqrt.root, (i))};
+			if (!(sqrt.root % factor) && (cleanSqrt(factor) != 65535)) {
+				sqrt.coef *= cleanSqrt(factor);
+				sqrt.root /= factor;
 			}
 		}
 	}
-	return square;
+	return sqrt;
 }
 
 void printFactors(unsigned int factor, int page)

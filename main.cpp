@@ -92,7 +92,7 @@ void activateCalculator(int currentMenu)
 		factPairCalc();
 		break;
 	case 6:
-		squareSimplifier();
+		sqrtSimplifier();
 		break;
 	case 8:
 		//fract simpl

@@ -15,7 +15,7 @@ struct Sqrt {
 
 struct QuadraticAnswer {
     Fraction fraction;
-    Sqrt squareRoot;
+    Sqrt sqrt;
 };
 
 struct Quadratic {
@@ -25,7 +25,7 @@ struct Quadratic {
 
 unsigned int cleanSqrt(unsigned int root);
 
-Sqrt simplifySquare(Sqrt square);
+Sqrt simplifySqrt(Sqrt sqrt);
 
 void printFactors(unsigned int factor, int page);
 

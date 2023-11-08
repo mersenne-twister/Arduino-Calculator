@@ -5,7 +5,7 @@
 
 void pythTheoCalc();
 
-void squareSimplifier();
+void sqrtSimplifier();
 
 void factPairCalc();
 

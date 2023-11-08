@@ -30,7 +30,7 @@ void pythTheoCalc()
 				x = (a + (b * b));
 		}
 
-		Sqrt square{1, x};
+		Sqrt sqrt{1, x};
 
 		//////////if (cleanSqrt(x)) { //DEPRECATED: the conditions should never be met (for the simplifier this will be needed)
 		//////////    std::cout << cleanSqrt(x) << '\n';
@@ -40,41 +40,41 @@ void pythTheoCalc()
 
 
 		//while (numFactors(root) > 2) { //keep going until root is prime
-		for (unsigned int i = (numFactors(square.root) - 1); i > 2; --i) {
-			unsigned int factor{getFactor(square.root, i)};
-			if (!(square.root % factor))
+		for (unsigned int i = (numFactors(sqrt.root) - 1); i > 2; --i) {
+			unsigned int factor{getFactor(sqrt.root, i)};
+			if (!(sqrt.root % factor))
 				if (cleanSqrt(factor)) {
-					square.root /= factor;
-					square.coef *= cleanSqrt(factor);
+					sqrt.root /= factor;
+					sqrt.coef *= cleanSqrt(factor);
 				}
 		}
 
-		printSqrt(square);
+		printSqrt(sqrt);
 		idleMenu(backPressed);
 	}
 }
 
-void squareSimplifier()
+void sqrtSimplifier()
 { //TODO: FIX INTEGER OVERFLOW
 	bool backPressed{false}; //lets us break out of the inner while loops
 	while (!backPressed) {
-		Sqrt square{0, 0};
-		write(square.coef);
+		Sqrt sqrt{0, 0};
+		write(sqrt.coef);
 
-		square.coef = getUnsignedInput(backPressed); //these calls originally int
-		if (!square.coef)
+		sqrt.coef = getUnsignedInput(backPressed); //these calls originally int
+		if (!sqrt.coef)
 			continue;
 
-		square.root = getUnsignedInput(backPressed, "r:"); 
-		if (!square.root)
+		sqrt.root = getUnsignedInput(backPressed, "r:"); 
+		if (!sqrt.root)
 			continue;
 
 		//if (backPressed)
 		//	break; //band aid fix, will change most likely when implementing io functions
 
-		square = simplifySquare(square);
+		sqrt = simplifySqrt(sqrt);
 
-		printSqrt(square);
+		printSqrt(sqrt);
 		idleMenu(backPressed);
 	}
 }
