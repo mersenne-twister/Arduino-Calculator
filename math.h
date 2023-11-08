@@ -8,14 +8,14 @@ struct Fraction {
     int denominator;
 };
 
-struct Square {
+struct Sqrt {
     unsigned int coef;
     unsigned int root;
 };
 
 struct QuadraticAnswer {
     Fraction fraction;
-    Square squareRoot;
+    Sqrt squareRoot;
 };
 
 struct Quadratic {
@@ -25,7 +25,7 @@ struct Quadratic {
 
 unsigned int cleanSqrt(unsigned int root);
 
-Square simplifySquare(Square square);
+Sqrt simplifySquare(Sqrt square);
 
 void printFactors(unsigned int factor, int page);
 

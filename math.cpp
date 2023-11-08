@@ -18,7 +18,7 @@ unsigned int cleanSqrt(unsigned int root)
 	return 65535; //65535 will never be the factor of a 16 bit int
 }
 
-Square simplifySquare(Square square)
+Sqrt simplifySquare(Sqrt square)
 {
 	if (cleanSqrt(square.root) != 65535) {
 		square.coef *= cleanSqrt(square.root);

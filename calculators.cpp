@@ -5,7 +5,7 @@
 #include "math.h"
 
 void pythTheoCalc()
-{
+{ //TODO: FIX INTEGER OVERFLOW
 	//TODO: add actual type safety lol
 	bool backPressed{false};
 	while (!backPressed) {
@@ -13,25 +13,24 @@ void pythTheoCalc()
 
 
 	//get a
-		unsigned int a{getNumInput<int>(backPressed, "a:")};
+		unsigned int a{getUnsignedInput(backPressed, "a:")}; //all 3 calls int originally
 		a = (a * a);
 
 		unsigned int b{0};
 		unsigned int c{0};
 		unsigned int x{};
 		while (!b && !c) {
-			b = getNumInput<int>(backPressed, "b:", 0);
+			b = getUnsignedInput(backPressed, "b:", 0);
 			if (!b) {
-				c = getNumInput<int>(backPressed, "c:", 0);
+				c = getUnsignedInput(backPressed, "c:", 0);
 				if (!c)
 					continue;
-				else
-					x = ((c * c) - a);
+				x = ((c * c) - a);
 			} else
 				x = (a + (b * b));
 		}
 
-		Square square{1, x};
+		Sqrt square{1, x};
 
 		//////////if (cleanSqrt(x)) { //DEPRECATED: the conditions should never be met (for the simplifier this will be needed)
 		//////////    std::cout << cleanSqrt(x) << '\n';
@@ -56,18 +55,17 @@ void pythTheoCalc()
 }
 
 void squareSimplifier()
-{
-	//TODO: revevaluate signed ints here!!!
+{ //TODO: FIX INTEGER OVERFLOW
 	bool backPressed{false}; //lets us break out of the inner while loops
 	while (!backPressed) {
-		Square square{0, 0};
+		Sqrt square{0, 0};
 		write(square.coef);
 
-		square.coef = getNumInput<int>(backPressed);
+		square.coef = getUnsignedInput(backPressed); //these calls originally int
 		if (!square.coef)
 			continue;
 
-		square.root = getNumInput<int>(backPressed, "r:");
+		square.root = getUnsignedInput(backPressed, "r:"); 
 		if (!square.root)
 			continue;
 
@@ -87,7 +85,7 @@ void factPairCalc()
 	while (!backPressed) {
 
 		unsigned int enteredNum{0};
-		enteredNum = getNumInput<unsigned int>(backPressed);
+		enteredNum = getUnsignedInput(backPressed);
 		if (!enteredNum)
 			continue;
 
