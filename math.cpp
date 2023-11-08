@@ -4,6 +4,17 @@
 #include "main.h"
 #include "math.h"
 
+bool doesOverflow(int x, char optr) //operator
+{
+	//if (enteredNum > ((maxInput - pressedNum) / 10)) {
+	//	write("Max num size");
+	//	waitForButton(enterButton);
+	//} else {
+	//	enteredNum = (enteredNum * 10) + pressedNum;
+	//}
+	//write(prefixString + enteredNum);
+}
+
 unsigned int cleanSqrt(unsigned int root)
 {
 	//add a while loop?
@@ -13,7 +24,7 @@ unsigned int cleanSqrt(unsigned int root)
 	for (int i = 1; i * i <= root; ++i) {
 		if ((i * i) == root)
 			return i;
-		
+
 	}
 	return 65535; //65535 will never be the factor of a 16 bit int
 }
@@ -21,6 +32,8 @@ unsigned int cleanSqrt(unsigned int root)
 Sqrt simplifySqrt(Sqrt sqrt)
 {
 	if (cleanSqrt(sqrt.root) != 65535) {
+		//check if overflow
+		//if so return 0
 		sqrt.coef *= cleanSqrt(sqrt.root);
 		sqrt.root = 1;
 	} else {
