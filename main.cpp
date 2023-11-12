@@ -55,7 +55,7 @@ void loop()
 
 	int currentMenu{0};
 	write(menus[currentMenu], menus[currentMenu + 1]);
-	while (true) {
+	while (true) { //main menu
 		switch (isInput()) {
 		case enterButton:
 			activateCalculator(currentMenu);
